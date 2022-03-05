@@ -1,4 +1,4 @@
-import { StyleSheet, Platform, StatusBar } from "react-native";
+import { StyleSheet, Platform, StatusBar } from 'react-native';
 
 export default StyleSheet.create({
     container: {
@@ -6,7 +6,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#dedede',
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     },
     shadow: {
         shadowColor: 'black',
@@ -15,6 +15,6 @@ export default StyleSheet.create({
             height: 5,
         },
         shadowOpacity: 0.25,
-        elevation: 5
-    }
+        elevation: 5,
+    },
 });

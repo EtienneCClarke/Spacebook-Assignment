@@ -1,9 +1,8 @@
-import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
-import styles from "../styling/Styles";
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+import styles from '../styling/Styles';
 
-function SettingsScreen({navigation}) {
-
+function SettingsScreen() {
     return (
         <View style={styles.container}>
             <Text>Settings Screen</Text>
@@ -13,7 +12,6 @@ function SettingsScreen({navigation}) {
             />
         </View>
     );
-
 }
 
 export default SettingsScreen;

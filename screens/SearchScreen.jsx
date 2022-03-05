@@ -1,9 +1,8 @@
-import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
-import styles from "../styling/Styles";
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+import styles from '../styling/Styles';
 
-function SearchScreen({navigation}) {
-
+function SearchScreen() {
     return (
         <View style={styles.container}>
             <Text>Search Screen</Text>
@@ -13,7 +12,6 @@ function SearchScreen({navigation}) {
             />
         </View>
     );
-
 }
 
 export default SearchScreen;
