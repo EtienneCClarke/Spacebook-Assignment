@@ -36,5 +36,8 @@ module.exports = {
         // alert warnings
         'no-alert': 'off',
         'no-console': 'off',
+
+        'react/no-unstable-nested-components': ['off', { allowAsProps: true }],
+
     },
 };
