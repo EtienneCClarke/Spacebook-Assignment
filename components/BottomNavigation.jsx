@@ -1,12 +1,12 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import HomeScreen from '../screens/Home';
-import SearchScreen from '../screens/Search';
-import FriendsScreen from '../screens/Friends';
-import DraftsScreen from '../screens/Drafts';
-import SettingsScreen from '../screens/Settings';
-import LoginScreen from '../screens/Login';
+import Home from '../screens/Home';
+import Search from '../screens/Search';
+import Friends from '../screens/Friends';
+import Drafts from '../screens/Drafts';
+import Settings from '../screens/Settings';
+import Login from '../screens/Login';
 import NavigationIcon from './NavigationIcon';
 
 const Tab = createBottomTabNavigator();
@@ -39,7 +39,7 @@ export default function BottomNavigation() {
         >
             <Tab.Screen
                 name="login"
-                component={LoginScreen}
+                component={Login}
                 options={{
                     tabBarButton: () => null,
                     tabBarVisible: false,
@@ -48,7 +48,7 @@ export default function BottomNavigation() {
             />
             <Tab.Screen
                 name="Home"
-                component={HomeScreen}
+                component={Home}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <NavigationIcon
@@ -62,7 +62,7 @@ export default function BottomNavigation() {
             />
             <Tab.Screen
                 name="Search"
-                component={SearchScreen}
+                component={Search}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <NavigationIcon
@@ -76,7 +76,7 @@ export default function BottomNavigation() {
             />
             <Tab.Screen
                 name="Friends"
-                component={FriendsScreen}
+                component={Friends}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <NavigationIcon
@@ -90,7 +90,7 @@ export default function BottomNavigation() {
             />
             <Tab.Screen
                 name="Drafts"
-                component={DraftsScreen}
+                component={Drafts}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <NavigationIcon
@@ -104,7 +104,7 @@ export default function BottomNavigation() {
             />
             <Tab.Screen
                 name="Settings"
-                component={SettingsScreen}
+                component={Settings}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <NavigationIcon
