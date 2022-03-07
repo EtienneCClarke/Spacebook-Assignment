@@ -14,4 +14,4 @@ function Search() {
     );
 }
 
-export default SearchScreen;
+export default Search;

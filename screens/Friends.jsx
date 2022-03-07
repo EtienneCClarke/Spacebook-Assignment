@@ -14,4 +14,4 @@ function Friends() {
     );
 }
 
-export default FriendsScreen;
+export default Friends;

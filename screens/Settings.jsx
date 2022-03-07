@@ -14,4 +14,4 @@ function Settings() {
     );
 }
 
-export default SettingsScreen;
+export default Settings;
