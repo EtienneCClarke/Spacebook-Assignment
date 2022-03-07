@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Button } from 'react-native';
 import styles from '../styling/Styles';
 
-function DraftsScreen() {
+function Drafts() {
     return (
         <View style={styles.container}>
             <Text>Drafts Screen</Text>
@@ -14,4 +14,4 @@ function DraftsScreen() {
     );
 }
 
-export default DraftsScreen;
+export default Drafts;
