@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import Navigation from './components/Navigation';
+import BottomNavigation from './components/BottomNavigation';
+
 
 export default function App() {
     return (
         <NavigationContainer>
-            <Navigation />
+            <BottomNavigation />
         </NavigationContainer>
     );
 }
