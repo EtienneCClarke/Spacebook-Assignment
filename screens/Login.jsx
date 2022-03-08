@@ -1,18 +1,33 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { Component } from 'react';
 import { View, Text, Pressable, Image, TextInput } from 'react-native';
-import styles from '../styling/Styles';
+import Styles from '../styling/Styles';
 
-class Login extends Component {
+export default class Login extends Component {
     constructor(props) {
         super(props);
+        
         this.state = {
             email: '',
             password: '',
+            error: '',
+            isValid: true,
         };
     }
 
+    componentDidMount() {
+        this.checkLoggedIn();
+    }
+
+    checkLoggedIn = async () => {
+        const token = await AsyncStorage.getItem('@session_token');
+        if(token != null) {
+            this.props.navigation.navigate('Home');
+        }
+    }
+
     login = async () => {
-        return fetch('http://localhost:3333/api/1.0.0/login', {
+        return fetch('http://192.168.1.73:3333/api/1.0.0/login', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
@@ -28,58 +43,59 @@ class Login extends Component {
             throw 'Something went wrong';
         })
         .then(async (responseJson) => {
-            console.log(responseJson);
             await AsyncStorage.setItem('@session_token', responseJson.token);
+            await AsyncStorage.setItem('@session_user', responseJson.id.toString());
             this.props.navigation.navigate('Home');
         })
         .catch((error) => {
-            console.log(error);
+            alert(error);
         });
     };
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={Styles.container}>
                 <Image
-                    style={styles.logo}
+                    style={Styles.logo}
                     source={require('../assets/icons/png/logo.png')}
                 />
-                <Text style={[styles.title, { marginTop: 15 }]} >Login!</Text>
-                <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Email</Text>
+                <Text style={[Styles.title, { marginTop: 15 }]} >Login!</Text>
+                <Text style={Styles.errorMsg}>{!this.state.isValid ? 'Something went wrong! Check details and try again' : ''}</Text>
+                <View style={Styles.inputContainer}>
+                    <Text style={Styles.label}>Email</Text>
                     <TextInput
+                        autoCapitalize="none"
                         placeholder="johnsmith@email.com"
                         onChangeText={(email) => this.setState({ email })}
                         value={this.state.email}
-                        style={styles.input}
+                        style={Styles.input}
                     />
                 </View>
-                <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Password</Text>
+                <View style={Styles.inputContainer}>
+                    <Text style={Styles.label}>Password</Text>
                     <TextInput
+                        autoCapitalize="none"
                         placeholder="Hello123"
                         onChangeText={(password) => this.setState({ password })}
                         value={this.state.password}
                         secureTextEntry
-                        style={styles.input}
+                        style={Styles.input}
                     />
                 </View>
                 <Pressable
-                    style={[styles.btnPrimary, { marginTop: 30}]}
-                    onPress={() => alert('login')}
+                    style={[Styles.btnPrimary, { marginTop: 30}]}
+                    onPress={() => this.login()}
                 >
-                    <Text style={styles.btnText}>Login</Text>
+                    <Text style={Styles.btnText}>Login</Text>
                 </Pressable>
-                <Text style={[styles.labelLight, { marginTop: 60 }]}>Dont have an account? Register now!</Text>
+                <Text style={[Styles.labelLight, { marginTop: 60 }]}>Dont have an account? Register now!</Text>
                 <Pressable
-                    style={[styles.btnSecondary, { marginTop: 30}]}
-                    onPress={() => alert('register')}
+                    style={[Styles.btnSecondary, { marginTop: 30}]}
+                    onPress={() => this.props.navigation.navigate('Signup')}
                 >
-                    <Text style={styles.btnText}>Register</Text>
+                    <Text style={Styles.btnText}>Register</Text>
                 </Pressable>
             </View>
         );
     }
 }
-
-export default Login;
