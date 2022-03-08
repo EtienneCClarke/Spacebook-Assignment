@@ -7,6 +7,7 @@ import Friends from '../screens/Friends';
 import Drafts from '../screens/Drafts';
 import Settings from '../screens/Settings';
 import Login from '../screens/Login';
+import Signup from  '../screens/Signup';
 import NavigationIcon from './NavigationIcon';
 
 const Tab = createBottomTabNavigator();
@@ -38,8 +39,17 @@ export default function BottomNavigation() {
             }}
         >
             <Tab.Screen
-                name="login"
+                name="Login"
                 component={Login}
+                options={{
+                    tabBarButton: () => null,
+                    tabBarVisible: false,
+                    tabBarStyle: { display: 'none' },
+                }}
+            />
+            <Tab.Screen
+                name="Signup"
+                component={Signup}
                 options={{
                     tabBarButton: () => null,
                     tabBarVisible: false,
