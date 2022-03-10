@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { Component } from 'react';
 import { View, ScrollView, Text, Pressable, Image, TextInput } from 'react-native';
+import Styles from '../styling/Styles';
 import styles from '../styling/Styles';
 
 export default class Signup extends Component {
@@ -72,7 +73,7 @@ export default class Signup extends Component {
     render() {
         return (
             <ScrollView contentContainerStyle={styles.signupScroll}>
-                <View style={styles.container}>
+                <View style={[styles.container, Styles.center]}>
 
                     <Image
                         style={styles.logo}
