@@ -17,13 +17,13 @@ export default class UserLabel extends Component {
 
     componentDidMount() {
         this.getPhoto();
-        this.getName();
+        this.getData();
         this.setState({
             user_id: this.props.userId,
         });
     }
 
-    getPhoto = async () => {
+    async getPhoto() {
 
         const token = await AsyncStorage.getItem('@session_token');
 
@@ -60,7 +60,7 @@ export default class UserLabel extends Component {
         })
     }
 
-    getName = async () => {
+    async getData() {
 
         const token = await AsyncStorage.getItem('@session_token');
 
