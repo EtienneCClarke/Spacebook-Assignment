@@ -8,6 +8,7 @@ import Drafts from '../screens/Drafts';
 import Settings from '../screens/Settings';
 import Login from '../screens/Login';
 import Signup from  '../screens/Signup';
+import SinglePost from '../screens/SinglePost';
 import NavigationIcon from './NavigationIcon';
 
 const Tab = createBottomTabNavigator();
@@ -16,6 +17,7 @@ export default function BottomNavigation() {
     return (
         <Tab.Navigator
             initialRouteName="Login"
+            backBehavior='history'
             screenOptions={{
                 headerShown: false,
                 tabBarShowLabel: false,
@@ -54,6 +56,13 @@ export default function BottomNavigation() {
                     tabBarButton: () => null,
                     tabBarVisible: false,
                     tabBarStyle: { display: 'none' },
+                }}
+            />
+            <Tab.Screen
+                name="SinglePost"
+                component={SinglePost}
+                options={{
+                    tabBarButton: () => null,
                 }}
             />
             <Tab.Screen
