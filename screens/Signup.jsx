@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { Component } from 'react';
 import { View, ScrollView, Text, Pressable, Image, TextInput } from 'react-native';
 import Styles from '../styling/Styles';
@@ -39,7 +38,7 @@ export default class Signup extends Component {
 
     }
 
-    register = async () => {
+    async register() {
 
         if(this.validate()) {
             return fetch('http://192.168.1.73:3333/api/1.0.0/user', {
