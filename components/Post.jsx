@@ -11,20 +11,59 @@ class Post extends Component {
         this.state = {
             liked: false,
             likes: null,
+            ogLikes: null,
         };
     }
 
     componentDidMount() {
+        this.checkLikeStatus();
         this.setState({
             likes: this.props.likes,
+            ogLikes: this.props.likes,
         })
+    }
+
+    async checkLikeStatus() {
+
+        const token = await AsyncStorage.getItem('@session_token');
+
+        if(this.props.author_id != this.props.viewer_id) {
+            return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.props.author_id + '/post/' + this.props.post_id + '/like', {
+            method: 'POST',
+            headers: {
+                'x-Authorization': token,
+            }
+            })
+            .then((response) => {
+                if(response.status == 200) {
+                    this.unlikePost();
+                }
+                else {
+                    this.setState({
+                        liked: true,
+                    })
+                }
+            });
+        }
+
+    }
+
+    toggleLike() {
+
+        if(this.props.author_id == this.props.viewer_id) {
+            alert('Cannot like your own posts!')
+        } else {
+            if(this.state.liked) { this.unlikePost(); }
+            else { this.likePost(); }
+        }
+
     }
 
     async likePost() {
 
         const token = await AsyncStorage.getItem('@session_token');
 
-        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.props.viewer_id + '/post/' + this.props.post_id + '/like', {
+        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.props.author_id + '/post/' + this.props.post_id + '/like', {
             method: 'POST',
             headers: {
                 'x-Authorization': token,
@@ -34,7 +73,7 @@ class Post extends Component {
             if(response.status === 200) {
                 this.setState({
                     liked: true,
-                    likes: this.state.likes + 1
+                    likes: this.state.likes + 1,
                 })
             } else if (response.status === 401) {
                 throw 'Unauthorised';
@@ -51,7 +90,7 @@ class Post extends Component {
     async unlikePost() {
 
         const token = await AsyncStorage.getItem('@session_token');
-        fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.props.viewer_id + '/post/' + this.props.post_id + '/like', {
+        fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.props.author_id + '/post/' + this.props.post_id + '/like', {
             method: 'DELETE',
             headers: {
                 'x-Authorization': token,
@@ -61,7 +100,7 @@ class Post extends Component {
             if(response.status === 200) {
                 this.setState({
                     liked: false,
-                    likes: this.state.likes - 1,
+                    likes: this.state.ogLikes,
                 })
             } else if (response.status === 401) {
                 return 'Unauthorised';
@@ -100,7 +139,7 @@ class Post extends Component {
                             viewer_id: this.props.viewer_id,
                             author_id: this.props.author_id,
                             first_name: this.props.author_first_name,
-                            last_name: this.props.authro_last_name,
+                            last_name: this.props.author_last_name,
                             body: this.props.body,
                             date: this.props.date,
                             likes: this.props.likes,
@@ -114,7 +153,7 @@ class Post extends Component {
                     <View style={Styles.postLikes}>
                         <Pressable
                             style={Styles.postLikeBtn}
-                            onPress={() => alert('Test!')}
+                            onPress={() => this.toggleLike()}
                         >
                             <Image 
                                 source={require('../assets/icons/png/like.png')}
