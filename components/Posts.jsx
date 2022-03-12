@@ -20,8 +20,13 @@ class Posts extends Component {
     }
 
     componentDidMount() {
-        this.getData();
+        this.getData()
+        // this.interval = setInterval(() => this.getData(), 5000);
     }
+
+    // componentWillUnmount() {
+    //     clearInterval(this.interval);
+    // }
 
     async getData() {
 
