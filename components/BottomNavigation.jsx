@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator();
 export default function BottomNavigation() {
     return (
         <Tab.Navigator
-            initialRouteName="Login"
+            initialRouteName="Search"
             backBehavior='history'
             screenOptions={{
                 headerShown: false,
