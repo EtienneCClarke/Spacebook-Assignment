@@ -95,7 +95,7 @@ export default class FriendProfile extends Component {
                 this.setState({
                     requestSent: true,
                 });
-            } else if (request.status === 404) {
+            } else if (response.status === 404) {
                 throw 'Not Found';
             } else {
                 throw 'Something went wrong';
