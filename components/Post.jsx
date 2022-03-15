@@ -11,7 +11,6 @@ class Post extends Component {
         this.state = {
             liked: false,
             likes: null,
-            ogLikes: null,
         };
     }
 
@@ -98,9 +97,13 @@ class Post extends Component {
         })
         .then((response) => {
             if(response.status === 200) {
+                let diff = 1;
+                if(this.state.likes == 0) {
+                    diff = 0;
+                }
                 this.setState({
                     liked: false,
-                    likes: this.state.ogLikes,
+                    likes: this.state.likes - diff,
                 })
             } else if (response.status === 401) {
                 return 'Unauthorised';
