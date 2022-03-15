@@ -138,8 +138,8 @@ export default class Search extends Component {
                     </View>
                     {
                         this.state.displayResults &&
-                        <View style={[Styles.container, { marginBottom: 20}]}>
-                            <Text style={[Styles.title, {marginLeft: '5%', marginRight: '5%', paddingBottom: 15, marginTop: -10}]}>
+                        <View style={[Styles.search, { marginBottom: 20}]}>
+                            <Text style={[Styles.title, {marginLeft: '5%', marginRight: '5%', paddingBottom: 15}]}>
                                 Results
                             </Text>
                             <View style={[Styles.container90, {paddingBottom: 105}]}>
