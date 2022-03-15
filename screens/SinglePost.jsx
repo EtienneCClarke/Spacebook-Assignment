@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Image, Pressable, Alert } from 'react-native';
+import { View, Text, TextInput, Image, Pressable, Alert, Platform } from 'react-native';
 import Styles from '../styling/Styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -97,20 +97,24 @@ export default class SinglePost extends Component {
 
     confirmDeletePost() {
 
-        Alert.alert(
-            'CONFIRM',
-            'Are you sure you want to delete this post?',
-            [
-                {
-                    text: 'Yes',
-                    onPress: () => this.deletePost(),
-                },
-                {
-                    text: 'Cancel',
-                }
-
-            ]
-        )
+        if(Platform.OS === 'web') {
+            this.deletePost();
+        } else {
+            Alert.alert(
+                'CONFIRM',
+                'Are you sure you want to delete this post?',
+                [
+                    {
+                        text: 'Yes',
+                        onPress: () => this.deletePost(),
+                    },
+                    {
+                        text: 'Cancel',
+                    }
+    
+                ]
+            );
+        }
     }
 
     async deletePost() {
