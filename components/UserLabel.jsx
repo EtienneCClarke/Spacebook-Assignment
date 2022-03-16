@@ -91,7 +91,6 @@ export default class UserLabel extends Component {
     }
 
     render() {
-
         return(
             <View style={Styles.userLabel}>
                 <Image
