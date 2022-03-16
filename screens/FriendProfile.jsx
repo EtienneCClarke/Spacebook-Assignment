@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { Component } from 'react';
-import { View, ScrollView, Text, Pressable } from 'react-native';
+import { View, ScrollView, Text, Pressable, Image } from 'react-native';
 import UserLabel from '../components/UserLabel';
 import Posts from '../components/Posts';
+import PostCard from '../components/PostCard';
 import Styles from '../styling/Styles';
 
 export default class FriendProfile extends Component {
@@ -15,6 +16,7 @@ export default class FriendProfile extends Component {
             isFriend: false,
             requestSent: false,
             loading: true,
+            showPostCard: false,
         }
     }
 
@@ -26,7 +28,9 @@ export default class FriendProfile extends Component {
                 requestSent: false,
                 isFriend: false,
                 loading: false,
+                showPostCard: false,
             });
+            this.closePostCard = this.closePostCard.bind(this);
             this.checkFriendStatus();
         });
     }
@@ -107,6 +111,12 @@ export default class FriendProfile extends Component {
         })
     }
 
+    closePostCard() {
+        this.setState({
+            showPostCard: false,
+        })
+    }
+
     render() {
         if(this.state.loading) {
             return (<View styles={[Styles.container, Styles.center]}><Text>Loading...</Text></View>);
@@ -114,10 +124,25 @@ export default class FriendProfile extends Component {
             if(this.state.isFriend) {
                 return (
                     <View key={this.state.id} style={Styles.container}>
+                        {this.state.showPostCard &&
+                            <PostCard closePostCard={this.closePostCard} target_wall={this.state.id}/>
+                        }
                         <View style={Styles.header}>
                             <UserLabel
                                 userId={this.state.id}
                             />
+                            <Pressable
+                                style={Styles.newPostBtn}
+                                onPress={() => this.setState({showPostCard: true})}
+                            >
+                                <Image
+                                    source={require('../assets/icons/png/cross.png')}
+                                    style={{
+                                        width: 25,
+                                        height: 25
+                                    }}
+                                />
+                            </Pressable>
                         </View>
                         <Text style={[Styles.title, {marginLeft: '5%', marginRight: '5%', paddingBottom: 15}]}>{this.state.first_name}'s Wall</Text>
                         <ScrollView style={[Styles.container, {paddingTop: 0, marginBottom: 100}]}>
