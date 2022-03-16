@@ -24,7 +24,7 @@ export default class Home extends Component {
         this.checkLoggedIn();   
     }
 
-    checkLoggedIn = async () => {
+    async checkLoggedIn() {
         const token = await AsyncStorage.getItem('@session_token');
         if(token == null) {
             this.props.navigation.navigate('Login');
@@ -44,7 +44,7 @@ export default class Home extends Component {
             return (
                 <View style={Styles.container}>
                     {this.state.showPostCard &&
-                        <PostCard closePostCard={this.closePostCard}/>
+                        <PostCard closePostCard={this.closePostCard} target_wall={this.state.id}/>
                     }
                     <View style={Styles.header}>
                         <UserLabel
