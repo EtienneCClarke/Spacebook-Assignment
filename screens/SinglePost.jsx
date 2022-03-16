@@ -29,13 +29,14 @@ export default class SinglePost extends Component {
             this.setState({
                 isEdited: false,
                 viewer_id: this.props.route.params.data.viewer_id,
+                owner_id: this.props.route.params.data.owner_id,
                 post_id: this.props.route.params.data.post_id,
                 author: {
                     user_id: this.props.route.params.data.author_id
-                }
+                },
+                loading: true,
             });
             this.getPost().then(() => {
-                console.log(this.state);
                 this.setState({
                     loading: false,
                 })
@@ -65,7 +66,7 @@ export default class SinglePost extends Component {
 
         const token = await AsyncStorage.getItem('@session_token');
 
-        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.author.user_id + '/post/' + this.state.post_id, {
+        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.owner_id + '/post/' + this.state.post_id, {
             method: 'GET',
             headers: {
                 'accept': 'application/json',
@@ -105,7 +106,7 @@ export default class SinglePost extends Component {
 
         const token = await AsyncStorage.getItem('@session_token');
 
-        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.author.user_id + '/post/' + this.state.post_id, {
+        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.owner_id + '/post/' + this.state.post_id, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
@@ -163,7 +164,7 @@ export default class SinglePost extends Component {
 
         const token = await AsyncStorage.getItem('@session_token');
 
-        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.author.user_id + '/post/' + this.state.post_id, {
+        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.owner_id + '/post/' + this.state.post_id, {
             method: 'DELETE',
             headers: {
                 'X-Authorization': token
@@ -172,17 +173,16 @@ export default class SinglePost extends Component {
         .then((response) => {
             if(response.status === 200) {
                 alert('Post Deleted!');
-                this.props.navigation.navigate('Home');
+                this.props.navigation.goBack();
             }
         })
-
     }
 
     render() {
         if(!this.state.loading) {
             if(this.state.author.user_id == this.state.viewer_id) {
                 return(
-                    <View style={Styles.container}>
+                    <View style={Styles.container} key={this.state.post_id}>
                         <View style={Styles.header}>
                             <Text style={Styles.title}>Posted by <Text style={Styles.titleLight}>Me</Text></Text>
                             <Pressable 
