@@ -18,17 +18,15 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-        AsyncStorage.getItem('@session_id').then((result) => {
-            this.setState({ id: result, loading: false, showPostCard: false, });
-        });
-        this.checkLoggedIn();   
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            AsyncStorage.getItem('@session_id').then((result) => {
+                this.setState({ id: result, loading: false, showPostCard: false, });
+            });
+        })
     }
 
-    async checkLoggedIn() {
-        const token = await AsyncStorage.getItem('@session_token');
-        if(token == null) {
-            this.props.navigation.navigate('Login');
-        }
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     closePostCard() {

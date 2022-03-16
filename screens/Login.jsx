@@ -15,6 +15,25 @@ export default class Login extends Component {
         };
     }
 
+    componentDidMount() {
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            this.checkLoggedIn();
+        })
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
+    async checkLoggedIn() {
+        const value = await AsyncStorage.getItem('@session_token');
+        if (value == null) {
+            this.props.navigation.navigate('Login');
+        } else {
+            this.props.navigation.navigate('Home');
+        }
+    }
+
     async login() {
         return fetch('http://192.168.1.73:3333/api/1.0.0/login', {
             method: 'post',
