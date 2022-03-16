@@ -27,7 +27,7 @@ export default class Home extends Component {
     checkLoggedIn = async () => {
         const token = await AsyncStorage.getItem('@session_token');
         if(token == null) {
-            this.props.navigation.navigate('Home');
+            this.props.navigation.navigate('Login');
         }
     }
 
