@@ -116,11 +116,11 @@ class Posts extends Component {
             return(
                 <View style={Styles.postWall}>
                     {this.displayPosts()}
-                    {this.needLoadButton() &&
-                        <Pressable style={Styles.loadMoreBtn} onPress={() => this.loadMore()}>
-                            <Text style={Styles.loadMoreText}>Load More</Text>
+                    {this.needLoadButton() && 
+                        <Pressable style={Styles.loadMoreBtn} onPress={() => this.loadMore()}> 
+                            <Text style={Styles.loadMoreText}>Load More</Text> 
                         </Pressable>
-                    }
+                    } 
                 </View>
             );
         }
