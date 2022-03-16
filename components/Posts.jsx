@@ -20,20 +20,23 @@ class Posts extends Component {
     }
 
     componentDidMount() {
-        this.getData()
-        // this.interval = setInterval(() => this.getData(), 5000);
+        this.getData().then(() => {
+            if(this.state.id === this.props.targetID) {
+                this.interval = setInterval(() => this.getData(), 5000);
+            }
+        })
     }
 
-    // componentWillUnmount() {
-    //     clearInterval(this.interval);
-    // }
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
 
     async getData() {
 
         const token = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@session_id');
 
-        fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.props.targetID + '/post', {
+        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.props.targetID + '/post', {
             headers: {
                 'Content-Type': 'application/json',
                 'x-Authorization': token,
