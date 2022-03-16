@@ -141,11 +141,6 @@ class Post extends Component {
                             post_id: this.props.post_id,
                             viewer_id: this.props.viewer_id,
                             author_id: this.props.author_id,
-                            first_name: this.props.author_first_name,
-                            last_name: this.props.author_last_name,
-                            body: this.props.body,
-                            date: this.props.date,
-                            likes: this.props.likes,
                         } 
                     })}
                     style={Styles.postBubble}
