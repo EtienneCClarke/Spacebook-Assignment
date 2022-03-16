@@ -9,6 +9,7 @@ import Settings from '../screens/Settings';
 import Login from '../screens/Login';
 import Signup from  '../screens/Signup';
 import SinglePost from '../screens/SinglePost';
+import FriendProfile from '../screens/FriendProfile';
 import NavigationIcon from './NavigationIcon';
 
 const Tab = createBottomTabNavigator();
@@ -16,7 +17,7 @@ const Tab = createBottomTabNavigator();
 export default function BottomNavigation() {
     return (
         <Tab.Navigator
-            initialRouteName="Search"
+            initialRouteName="Home"
             backBehavior='history'
             screenOptions={{
                 headerShown: false,
@@ -61,6 +62,13 @@ export default function BottomNavigation() {
             <Tab.Screen
                 name="SinglePost"
                 component={SinglePost}
+                options={{
+                    tabBarButton: () => null,
+                }}
+            />
+            <Tab.Screen
+                name="FriendProfile"
+                component={FriendProfile}
                 options={{
                     tabBarButton: () => null,
                 }}
