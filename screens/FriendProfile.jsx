@@ -17,6 +17,7 @@ export default class FriendProfile extends Component {
             requestSent: false,
             loading: true,
             showPostCard: false,
+            reload: 0,
         }
     }
 
@@ -114,6 +115,7 @@ export default class FriendProfile extends Component {
     closePostCard() {
         this.setState({
             showPostCard: false,
+            reload: this.state.reload + 1,
         })
     }
 
@@ -146,7 +148,7 @@ export default class FriendProfile extends Component {
                         </View>
                         <Text style={[Styles.title, {marginLeft: '5%', marginRight: '5%', paddingBottom: 15}]}>{this.state.first_name}'s Wall</Text>
                         <ScrollView style={[Styles.container, {paddingTop: 0, marginBottom: 100}]}>
-                            <Posts targetID={this.state.id}/>
+                            <Posts targetID={this.state.id} key={this.state.reload}/>
                         </ScrollView>
                     </View>
                 );
