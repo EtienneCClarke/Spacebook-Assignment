@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import Styles from '../styling/Styles';
 import Post from './Post';
 
@@ -12,7 +12,6 @@ class Posts extends Component {
 
         this.state = {
             id: null,
-            offset: null,
             limit: 20,
             posts: [],
             loading: true,
@@ -24,6 +23,9 @@ class Posts extends Component {
             if(this.state.id === this.props.targetID) {
                 this.interval = setInterval(() => this.getData(), 5000);
             }
+            this.setState({
+                limit: 20,
+            })
         })
     }
 
@@ -88,7 +90,19 @@ class Posts extends Component {
                 />
             );
         });
+    }
 
+    needLoadButton() {
+        if(this.state.posts.length == this.state.limit) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    loadMore() {
+        this.setState({limit: this.state.limit + 20});
+        this.getData();
     }
 
     render() {
@@ -100,7 +114,14 @@ class Posts extends Component {
             );
         } else {
             return(
-                <View style={Styles.postWall}>{this.displayPosts()}</View>
+                <View style={Styles.postWall}>
+                    {this.displayPosts()}
+                    {this.needLoadButton() &&
+                        <Pressable style={Styles.loadMoreBtn} onPress={() => this.loadMore()}>
+                            <Text style={Styles.loadMoreText}>Load More</Text>
+                        </Pressable>
+                    }
+                </View>
             );
         }
     }

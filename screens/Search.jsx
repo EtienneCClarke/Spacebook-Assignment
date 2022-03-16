@@ -15,6 +15,7 @@ export default class Search extends Component {
             searchQuery: '',
             searchResults: [],
             displayResults: false,
+            limit: null,
         }
 
     }
@@ -28,6 +29,7 @@ export default class Search extends Component {
                     searchQuery: '',
                     searchResults: [],
                     displayResults: false,
+                    limit: 20,
                 });
             });
         });
@@ -41,7 +43,7 @@ export default class Search extends Component {
         
         const token = await AsyncStorage.getItem('@session_token');
 
-        return fetch('http://192.168.1.73:3333/api/1.0.0/search?q=' + this.state.searchQuery, {
+        return fetch('http://192.168.1.73:3333/api/1.0.0/search?q=' + this.state.searchQuery + '&limit=' + this.state.limit, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -75,6 +77,19 @@ export default class Search extends Component {
             console.log(error)
         })
 
+    }
+
+    needLoadButton() {
+        if(this.state.searchResults.length == this.state.limit) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    loadMore() {
+        this.setState({limit: this.state.limit + 20});
+        this.search();
     }
 
     getResults() {
@@ -139,11 +154,16 @@ export default class Search extends Component {
                     {
                         this.state.displayResults &&
                         <View style={[Styles.search, { marginBottom: 20}]}>
-                            <Text style={[Styles.title, {marginLeft: '5%', marginRight: '5%', paddingBottom: 15}]}>
+                            <Text style={[Styles.title, {marginTop: 15, marginLeft: '5%', marginRight: '5%', paddingBottom: 15}]}>
                                 Results
                             </Text>
                             <View style={[Styles.container90, {paddingBottom: 105}]}>
                                 {this.getResults()}
+                                {this.needLoadButton() &&
+                                    <Pressable style={Styles.loadMoreBtn} onPress={() => this.loadMore()}>
+                                        <Text style={Styles.loadMoreText}>Load More</Text>
+                                    </Pressable>
+                                }
                             </View>
                         </View>
                     }
