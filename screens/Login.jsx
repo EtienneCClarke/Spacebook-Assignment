@@ -15,18 +15,7 @@ export default class Login extends Component {
         };
     }
 
-    componentDidMount() {
-        this.checkLoggedIn();
-    }
-
-    checkLoggedIn = async () => {
-        const token = await AsyncStorage.getItem('@session_token');
-        if(token != null) {
-            this.props.navigation.navigate('Home');
-        }
-    }
-
-    login = async () => {
+    async login() {
         return fetch('http://192.168.1.73:3333/api/1.0.0/login', {
             method: 'post',
             headers: {
@@ -44,7 +33,7 @@ export default class Login extends Component {
         })
         .then(async (responseJson) => {
             await AsyncStorage.setItem('@session_token', responseJson.token);
-            await AsyncStorage.setItem('@session_user', responseJson.id.toString());
+            await AsyncStorage.setItem('@session_id', responseJson.id.toString());
             this.props.navigation.navigate('Home');
         })
         .catch((error) => {
@@ -54,7 +43,7 @@ export default class Login extends Component {
 
     render() {
         return (
-            <View style={Styles.container}>
+            <View style={[Styles.container, Styles.center]}>
                 <Image
                     style={Styles.logo}
                     source={require('../assets/icons/png/logo.png')}
