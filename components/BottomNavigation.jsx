@@ -17,7 +17,7 @@ const Tab = createBottomTabNavigator();
 export default function BottomNavigation() {
     return (
         <Tab.Navigator
-            initialRouteName="Home"
+            initialRouteName="Settings"
             backBehavior='history'
             screenOptions={{
                 headerShown: false,
@@ -69,6 +69,13 @@ export default function BottomNavigation() {
             <Tab.Screen
                 name="FriendProfile"
                 component={FriendProfile}
+                options={{
+                    tabBarButton: () => null,
+                }}
+            />
+            <Tab.Screen
+                name="Camera"
+                component={Camera}
                 options={{
                     tabBarButton: () => null,
                 }}

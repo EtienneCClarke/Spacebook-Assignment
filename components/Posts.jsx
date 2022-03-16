@@ -81,6 +81,7 @@ class Posts extends Component {
                     key={post.post_id}
                     post_id={post.post_id}
                     viewer_id={this.state.id}
+                    owner_id={this.props.targetID}
                     author_id={post.author.user_id}
                     author_first_name={post.author.first_name}
                     author_last_name={post.author.last_name}
