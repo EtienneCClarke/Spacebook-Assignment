@@ -59,8 +59,10 @@ export default class PostCard extends Component {
                                 value={this.state.text}
                                 style={[Styles.postText, {
                                     minHeight: 100,
+                                    maxHeight: 200,
                                 }]}
                                 multiline={true}
+                                textAlignVertical="top"
                             />
                         </View>
                         <View style={Styles.postCardActions}>
