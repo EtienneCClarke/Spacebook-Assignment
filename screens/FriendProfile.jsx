@@ -23,6 +23,8 @@ export default class FriendProfile extends Component {
             this.setState({
                 id: this.props.route.params.data.user_id,
                 first_name: this.props.route.params.data.first_name,
+                requestSent: false,
+                isFriend: false,
                 loading: false,
             });
             this.checkFriendStatus();
@@ -60,7 +62,7 @@ export default class FriendProfile extends Component {
         })
         .then((responseJson) => {
             Object.keys(responseJson).forEach((key) => {
-                if(responseJson[key].user_id === this.state.id) {
+                if(responseJson[key].user_id === this.state.id || this.state.id == id) {
                     this.setState({
                         isFriend: true,
                     })
@@ -83,8 +85,7 @@ export default class FriendProfile extends Component {
             }
         })
         .then((response) => {
-            if(response.status === 200) {
-                alert('Friend request sent!');
+            if(response.status === 201) {
                 this.setState({
                     requestSent: true,
                 });
