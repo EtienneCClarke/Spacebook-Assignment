@@ -295,5 +295,26 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-end',
         justifyContent: 'space-between'
+    },
+    loadMoreBtn: {
+        alignSelf: 'center',
+        marginVertical: 25,
+        padding: 10,
+        borderRadius: 5,
+        backgroundColor: '#F5F5F5',
+        borderColor: '#8F8F8F',
+        borderWidth: 1,
+        shadowColor: 'black',
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 15,
+        elevation: 3,
+    },
+    loadMoreText: {
+        color: '#8F8F8F',
+        fontWeight: 'bold',
     }
 });
