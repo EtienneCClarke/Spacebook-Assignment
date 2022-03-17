@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { Component } from 'react';
-import { View, Text, Image, TextInput, ScrollView, Pressable } from 'react-native';
+import { View, Text, Image, TextInput, ScrollView, Pressable, Platform } from 'react-native';
 import Styles from '../styling/Styles';
 
 export default class Settings extends Component {
