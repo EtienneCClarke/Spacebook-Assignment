@@ -16,6 +16,7 @@ export default class Search extends Component {
             searchResults: [],
             displayResults: false,
             limit: null,
+            reload: 0,
         }
 
     }
@@ -30,6 +31,7 @@ export default class Search extends Component {
                     searchResults: [],
                     displayResults: false,
                     limit: 20,
+                    reload: this.state.reload + 1,
                 });
             });
         });
@@ -130,6 +132,7 @@ export default class Search extends Component {
                 <ScrollView style={[Styles.container]}>
                     <View style={Styles.header}>
                         <UserLabel
+                            key={this.state.reload}
                             userId={this.state.user_id}
                         />
                     </View>
