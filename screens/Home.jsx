@@ -43,7 +43,7 @@ export default class Home extends Component {
             return (
                 <View style={Styles.container}>
                     {this.state.showPostCard &&
-                        <PostCard closePostCard={this.closePostCard} target_wall={this.state.id} content={null}/>
+                        <PostCard closePostCard={this.closePostCard} target_wall={this.state.id} draft_id={null} content={null} draft={false}/>
                     }
                     <View style={Styles.header}>
                         <UserLabel
