@@ -36,13 +36,24 @@ class Post extends Component {
             .then((response) => {
                 if(response.status == 200) {
                     this.unlikePost();
+                } else if (response.status === 404) {
+                    throw 'Not Found';
                 }
                 else {
-                    this.setState({
-                        liked: true,
-                    })
+                    if(this.props.owner_id != this.props.viewer_id) {
+                        this.setState({
+                            liked: false,
+                        });
+                    } else {
+                        this.setState({
+                            liked: true,
+                        });
+                    }
                 }
-            });
+            })
+            .catch((error) => {
+                console.log(error);
+            })
         }
 
     }
