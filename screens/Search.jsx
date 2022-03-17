@@ -154,8 +154,7 @@ export default class Search extends Component {
                             <Text style={Styles.btnText}>GO</Text>
                         </Pressable>
                     </View>
-                    {
-                        this.state.displayResults &&
+                    {this.state.displayResults &&
                         <View style={[Styles.search, { marginBottom: 20}]}>
                             <Text style={[Styles.title, {marginTop: 15, marginLeft: '5%', marginRight: '5%', paddingBottom: 15}]}>
                                 Results
