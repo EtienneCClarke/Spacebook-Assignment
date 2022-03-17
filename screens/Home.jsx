@@ -13,6 +13,7 @@ export default class Home extends Component {
             id: null,
             loading: true,
             showPostCard: true,
+            reload: 0,
         };
         this.closePostCard = this.closePostCard.bind(this);
     }
@@ -20,7 +21,7 @@ export default class Home extends Component {
     componentDidMount() {
         this.unsubscribe = this.props.navigation.addListener('focus', () => {
             AsyncStorage.getItem('@session_id').then((result) => {
-                this.setState({ id: result, loading: false, showPostCard: false, });
+                this.setState({ id: result, loading: false, showPostCard: false, reload: this.state.reload + 1});
             });
         })
     }
@@ -46,6 +47,7 @@ export default class Home extends Component {
                     }
                     <View style={Styles.header}>
                         <UserLabel
+                            key={this.state.reload}
                             userId={this.state.id}
                         />
                         <Pressable
