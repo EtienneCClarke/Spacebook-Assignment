@@ -11,6 +11,17 @@ export default class PostCard extends Component {
         text: this.props.content,
     }
 
+    async inDrafts() {
+        
+        AsyncStorage.getItem('@session_id').then((id) => {
+            let target = '@drafts_' + id;
+            AsyncStorage.getItem(target).then((arr) => {
+                let obj = JSON.parse(arr);
+            })
+        });  
+
+    }
+
     async saveDraft() {
 
         AsyncStorage.getItem('@session_id').then((id) => {
@@ -19,8 +30,9 @@ export default class PostCard extends Component {
                 let obj = JSON.parse(arr);
                 const newIndex = Object.keys(obj).length;
                 obj[newIndex] = { text: this.state.text };
-                console.log(obj);
-                // AsyncStorage.setItem(target, JSON.stringify(obj));
+                AsyncStorage.setItem(target, JSON.stringify(obj));
+                alert('Saved!');
+                this.props.closePostCard();
             })
         });  
 
@@ -28,14 +40,34 @@ export default class PostCard extends Component {
 
     async updateDraft() {
 
-        // Update a draft  
+        AsyncStorage.getItem('@session_id').then((id) => {
+            let target = '@drafts_' + id;
+            AsyncStorage.getItem(target).then((arr) => {
+                let obj = JSON.parse(arr);
+                obj[this.state.id] = { text: this.state.text };
+                AsyncStorage.setItem(target, JSON.stringify(obj));
+                this.props.closePostCard();
+            })
+        });  
 
     }
 
     async deleteDraft() {
 
-        // delete a draft
-
+        AsyncStorage.getItem('@session_id').then((id) => {
+            let target = '@drafts_' + id;
+            AsyncStorage.getItem(target).then((arr) => {
+                let obj = JSON.parse(arr);
+                let tempArr = [];
+                Object.keys(obj).forEach((key) => {
+                    tempArr.push(obj[key]);
+                });
+                tempArr.splice(this.state.id, 1);
+                obj = JSON.stringify(Object.assign({}, tempArr));
+                AsyncStorage.setItem(target, obj);
+                this.props.closePostCard();
+            })
+        });
     }
 
     async newPost() {
@@ -52,6 +84,9 @@ export default class PostCard extends Component {
         })
         .then((response) => {
             if (response.status === 201) {
+                if(this.state.draft) {
+                    this.deleteDraft();
+                }
                 this.props.closePostCard();
             } else if (response.status === 401) {
                 throw 'Unauthorised';
