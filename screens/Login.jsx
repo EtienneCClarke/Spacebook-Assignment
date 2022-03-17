@@ -25,12 +25,28 @@ export default class Login extends Component {
         this.unsubscribe();
     }
 
-    async checkLoggedIn() {
-        const value = await AsyncStorage.getItem('@session_token');
-        if (value == null) {
+    checkLoggedIn() {
+        const token = AsyncStorage.getItem('@session_token');
+        const id = AsyncStorage.getItem('@session_id');
+        if (token === null) {
             this.props.navigation.navigate('Login');
         } else {
-            this.props.navigation.navigate('Home');
+            fetch('http://192.168.1.73:3333/api/1.0.0/user/' + id, {
+                method: 'GET',
+                headers: {
+                    'X-Authorization': token,
+                }
+            })
+            .then((response) => {
+                if (response.status === 200) {
+                    this.props.navigation.navigate('Home');
+                } else {
+                    this.props.navigation.navigate('Login');
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
         }
     }
 
@@ -53,6 +69,10 @@ export default class Login extends Component {
         .then(async (responseJson) => {
             await AsyncStorage.setItem('@session_token', responseJson.token);
             await AsyncStorage.setItem('@session_id', responseJson.id.toString());
+            let drafts = await AsyncStorage.getItem('@drafts_' + responseJson.id);
+            if(drafts == null) {
+                await AsyncStorage.setItem('@drafts_' + responseJson.id, JSON.stringify({0: { 'text': null }}));
+            }
             this.props.navigation.navigate('Home');
         })
         .catch((error) => {
