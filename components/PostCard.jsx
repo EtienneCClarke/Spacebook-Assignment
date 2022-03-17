@@ -6,7 +6,36 @@ import Styles from '../styling/Styles';
 export default class PostCard extends Component {
 
     state = {
+        id: this.props.draft_id,
+        draft: this.props.draft,
         text: this.props.content,
+    }
+
+    async saveDraft() {
+
+        AsyncStorage.getItem('@session_id').then((id) => {
+            let target = '@drafts_' + id;
+            AsyncStorage.getItem(target).then((arr) => {
+                let obj = JSON.parse(arr);
+                const newIndex = Object.keys(obj).length;
+                obj[newIndex] = { text: this.state.text };
+                console.log(obj);
+                // AsyncStorage.setItem(target, JSON.stringify(obj));
+            })
+        });  
+
+    }
+
+    async updateDraft() {
+
+        // Update a draft  
+
+    }
+
+    async deleteDraft() {
+
+        // delete a draft
+
     }
 
     async newPost() {
@@ -35,15 +64,11 @@ export default class PostCard extends Component {
         .catch((error) => {
             console.log(error);
         })
-
     }
 
     render() {
         return(
-            <Modal
-                transparent={true}
-                
-            >
+            <Modal transparent={true}>
                 <View style={Styles.postCardBackground}>
                     <View style={Styles.postCard}>
                         <View style={{
@@ -80,30 +105,79 @@ export default class PostCard extends Component {
                             />
                         </View>
                         <View style={Styles.postCardActions}>
-                            <Pressable
-                                    style={[
-                                        Styles.actionButtonThin,
-                                        {
-                                            backgroundColor: '#3AC8BF',
-                                            paddingVertical: 3,
-                                        }
-                                    ]}
-                                    onPress={() => alert('Test!')}
-                                >
-                                    <Text style={Styles.btnTextSmall}>Save for later</Text>
-                            </Pressable>
-                            <Pressable
-                                style={[
-                                    Styles.actionButtonThin,
-                                    {
-                                        backgroundColor: '#7BD679',
-                                        paddingVertical: 7,
-                                    }
-                                ]}
-                                onPress={() => this.newPost()}
-                            >
-                                <Text style={Styles.btnTextSmall}>Post!</Text>
-                            </Pressable>
+                            {this.state.draft &&
+                                <View style={{width: '100%'}}>
+                                    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
+                                        <Pressable
+                                            style={[
+                                                Styles.actionButtonThin,
+                                                {
+                                                    backgroundColor: '#FF4141',
+                                                    paddingVertical: 10,
+                                                    alignSelf: 'center'
+                                                }
+                                            ]}
+                                            onPress={() => this.deleteDraft()}
+                                        >
+                                            <Text style={Styles.btnTextSmall}>Delete Draft</Text>
+                                        </Pressable>
+                                        <Pressable
+                                            style={[
+                                                Styles.actionButtonThin,
+                                                {
+                                                    backgroundColor: '#3AC8BF',
+                                                    paddingVertical: 10,
+                                                }
+                                            ]}
+                                            onPress={() => this.updateDraft()}
+                                        >
+                                            <Text style={Styles.btnTextSmall}>Save Draft</Text>
+                                        </Pressable>
+                                    </View>
+                                    <Pressable
+                                        style={[
+                                            Styles.actionButtonThin,
+                                            {
+                                                backgroundColor: '#7BD679',
+                                                paddingVertical: 20,
+                                                width: '100%',
+                                                alignItems: 'center',
+                                                marginTop: 30,
+                                                alignSelf: 'center',
+                                            }
+                                        ]}
+                                        onPress={() => this.newPost()}
+                                    >
+                                        <Text style={Styles.btnText}>Post!</Text>
+                                    </Pressable>
+                                </View> ||
+                                <View style={{flexDirection: 'row', alignItems:'flex-end', justifyContent: 'space-between', width: '100%'}}>
+                                    <Pressable
+                                        style={[
+                                            Styles.actionButtonThin,
+                                            {
+                                                backgroundColor: '#3AC8BF',
+                                                paddingVertical: 3,
+                                            }
+                                        ]}
+                                        onPress={() => this.saveDraft()}
+                                    >
+                                        <Text style={Styles.btnTextSmall}>Save to drafts</Text>
+                                    </Pressable>
+                                    <Pressable
+                                        style={[
+                                            Styles.actionButtonThin,
+                                            {
+                                                backgroundColor: '#7BD679',
+                                                paddingVertical: 10,
+                                            }
+                                        ]}
+                                        onPress={() => this.newPost()}
+                                    >
+                                        <Text style={Styles.btnTextSmall}>Post!</Text>
+                                    </Pressable>
+                                </View>
+                            }
                         </View>
                     </View>
                 </View>
