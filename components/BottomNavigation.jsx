@@ -11,13 +11,14 @@ import Signup from  '../screens/Signup';
 import SinglePost from '../screens/SinglePost';
 import FriendProfile from '../screens/FriendProfile';
 import NavigationIcon from './NavigationIcon';
+import PhotoUpload from '../screens/PhotoUpload';
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomNavigation() {
     return (
         <Tab.Navigator
-            initialRouteName="Settings"
+            initialRouteName="Home"
             backBehavior='history'
             screenOptions={{
                 headerShown: false,
@@ -60,6 +61,13 @@ export default function BottomNavigation() {
                 }}
             />
             <Tab.Screen
+                name="PhotoUpload"
+                component={PhotoUpload}
+                options={{
+                    tabBarButton: () => null,
+                }}
+            />
+            <Tab.Screen
                 name="SinglePost"
                 component={SinglePost}
                 options={{
@@ -69,13 +77,6 @@ export default function BottomNavigation() {
             <Tab.Screen
                 name="FriendProfile"
                 component={FriendProfile}
-                options={{
-                    tabBarButton: () => null,
-                }}
-            />
-            <Tab.Screen
-                name="Camera"
-                component={Camera}
                 options={{
                     tabBarButton: () => null,
                 }}
