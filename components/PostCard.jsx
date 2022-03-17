@@ -5,11 +5,8 @@ import Styles from '../styling/Styles';
 
 export default class PostCard extends Component {
 
-    constructor() {
-        super();
-        this.state = {
-            text: ''
-        }
+    state = {
+        text: this.props.content,
     }
 
     async newPost() {
@@ -49,7 +46,25 @@ export default class PostCard extends Component {
             >
                 <View style={Styles.postCardBackground}>
                     <View style={Styles.postCard}>
-                        <Text style={[Styles.title, { alignSelf: 'center', marginBottom: 20, fontSize: 20}]}>New Post</Text>
+                        <View style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginBottom: 20,
+                        }}>
+                            <Text style={[Styles.title, {fontSize: 20}]}>New Post</Text>
+                            <Pressable
+                                style={Styles.newPostBtnClose}
+                                onPress={() => this.props.closePostCard()}
+                            >
+                                <Image
+                                    source={require('../assets/icons/png/xSmall.png')}
+                                    style={{
+                                        width: 18,
+                                        height: 18,
+                                    }}
+                                />
+                            </Pressable>
+                        </View>
                         <View style={Styles.postCardBubble}>
                             <TextInput
                                 autoCapitalize="none"
@@ -75,7 +90,7 @@ export default class PostCard extends Component {
                                     ]}
                                     onPress={() => alert('Test!')}
                                 >
-                                    <Text style={Styles.btnTextSmall}>Save to drafts</Text>
+                                    <Text style={Styles.btnTextSmall}>Save for later</Text>
                             </Pressable>
                             <Pressable
                                 style={[
