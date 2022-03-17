@@ -1,4 +1,7 @@
-import { StyleSheet, Platform, StatusBar } from 'react-native';
+import { StyleSheet, Platform, StatusBar, Dimensions } from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export default StyleSheet.create({
     center: {
@@ -223,6 +226,22 @@ export default StyleSheet.create({
         marginLeft: 'auto',
         marginRight: 15,
     },
+    newPostBtnClose: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#FF8F8F',
+        borderRadius: 5,
+        padding: 5,
+        shadowColor: 'black',
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 15,
+        elevation: 2,
+        marginLeft: 'auto',
+    },
     actionButton: {
         backgroundColor: '#79CAD6',
         shadowColor: 'black',
@@ -284,7 +303,7 @@ export default StyleSheet.create({
         zIndex: 100,
     },
     postCardBubble: {
-        flexShrink: 1,
+        flexGrow: 1,
         backgroundColor: '#fff',
         borderRadius: 5,
         paddingHorizontal: 20,
@@ -316,5 +335,71 @@ export default StyleSheet.create({
     loadMoreText: {
         color: '#8F8F8F',
         fontWeight: 'bold',
+    },
+    btnLogout: {
+        backgroundColor: '#FF4141',
+        shadowColor: 'black',
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 15,
+        elevation: 3,
+        paddingHorizontal: 15,
+        paddingVertical: 7,
+        borderRadius: 10,
+        alignSelf: 'flex-end',
+        marginRight: '5%',
+        marginTop: 40,
+    },
+    cameraContainer: {
+        overflow: 'hidden',
+        alignSelf: 'center',
+        marginTop: 80,
+        borderRadius: 200,
+    },
+    camera: {
+        width: windowWidth*0.8,
+        height: windowWidth*0.8,
+        maxWidth: 400,
+        maxHeight: 400,
+    },
+    cameraButtonContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 80,
+    },
+    draftContainer: {
+        flexDirection: 'row',
+        width: '90%',
+        marginLeft: '5%',
+        marginVertical: 15,
+    },
+    draftTextContainer: {
+        backgroundColor: '#fff',
+        padding: 15,
+        borderRadius: 5,
+        flex: 1,
+        marginRight: 15,
+        flexGrow: 1,
+    },
+    editDraft: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'flex-start',
+        backgroundColor: '#3AC8BF',
+        borderRadius: 15,
+        padding: 10,
+        shadowColor: 'black',
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 15,
+        elevation: 2,
+        marginLeft: 'auto',
+        marginRight: 15,
     }
 });
