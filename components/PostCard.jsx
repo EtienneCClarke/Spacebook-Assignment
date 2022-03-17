@@ -11,17 +11,6 @@ export default class PostCard extends Component {
         text: this.props.content,
     }
 
-    async inDrafts() {
-        
-        AsyncStorage.getItem('@session_id').then((id) => {
-            let target = '@drafts_' + id;
-            AsyncStorage.getItem(target).then((arr) => {
-                let obj = JSON.parse(arr);
-            })
-        });  
-
-    }
-
     async saveDraft() {
 
         AsyncStorage.getItem('@session_id').then((id) => {
