@@ -30,7 +30,7 @@ export default class UserLabel extends Component {
 
     async getPhoto() {
         const token = await AsyncStorage.getItem('@session_token');
-        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.user_id + '/photo', {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + this.state.user_id + '/photo', {
             headers: {
                 Accept: 'image/jpeg',
                 'x-Authorization': token,
@@ -61,7 +61,7 @@ export default class UserLabel extends Component {
 
     async getData() {
         const token = await AsyncStorage.getItem('@session_token');
-        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.user_id, {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + this.state.user_id, {
             headers: {
                 'x-Authorization': token,
             },

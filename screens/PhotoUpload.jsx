@@ -32,7 +32,7 @@ export default function PhotoUpload() {
         const id = await AsyncStorage.getItem('@session_id');
         const res = await fetch(data.uri);
         const blob = await res.blob();
-        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + id + '/photo', {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + id + '/photo', {
             method: 'POST',
             headers: {
                 'Content-Type': 'image/jpeg',

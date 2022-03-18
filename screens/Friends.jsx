@@ -42,7 +42,7 @@ export default class Friends extends Component {
     async getData() {
         const token = await AsyncStorage.getItem('@session_token');
 
-        fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.user_id + '/friends', {
+        fetch('http://localhost:3333/api/1.0.0/user/' + this.state.user_id + '/friends', {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -72,7 +72,7 @@ export default class Friends extends Component {
             console.log(error);
         });
 
-        fetch('http://192.168.1.73:3333/api/1.0.0/friendrequests', {
+        fetch('http://localhost:3333/api/1.0.0/friendrequests', {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',

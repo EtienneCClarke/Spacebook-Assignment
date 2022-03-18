@@ -30,7 +30,7 @@ class Post extends Component {
     async checkLikeStatus() {
         const token = await AsyncStorage.getItem('@session_token');
         if (this.props.author_id != this.props.viewer_id) {
-            return fetch('http://192.168.1.73:3333/api/1.0.0/user/'
+            return fetch('http://localhost:3333/api/1.0.0/user/'
                 + this.props.author_id
                 + '/post/'
                 + this.props.post_id
@@ -70,7 +70,7 @@ class Post extends Component {
 
     async likePost() {
         const token = await AsyncStorage.getItem('@session_token');
-        return fetch('http://192.168.1.73:3333/api/1.0.0/user/'
+        return fetch('http://localhost:3333/api/1.0.0/user/'
             + this.props.author_id
             + '/post/'
             + this.props.post_id
@@ -99,7 +99,7 @@ class Post extends Component {
 
     async unlikePost() {
         const token = await AsyncStorage.getItem('@session_token');
-        fetch('http://192.168.1.73:3333/api/1.0.0/user/'
+        fetch('http://localhost:3333/api/1.0.0/user/'
             + this.props.author_id
             + '/post/'
             + this.props.post_id

@@ -49,7 +49,7 @@ export default class FriendProfile extends Component {
     async checkFriendStatus() {
         const token = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@session_id');
-        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + id + '/friends', {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + id + '/friends', {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -81,7 +81,7 @@ export default class FriendProfile extends Component {
 
     async sendFriendRequest() {
         const token = await AsyncStorage.getItem('@session_token');
-        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.id + '/friends', {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + this.state.id + '/friends', {
             method: 'POST',
             headers: {
                 'X-Authorization': token,

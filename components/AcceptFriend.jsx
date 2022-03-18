@@ -20,7 +20,7 @@ export default class AcceptFriend extends Component {
 
     async AcceptFriend() {
         const token = await AsyncStorage.getItem('@session_token');
-        fetch('http://192.168.1.73:3333/api/1.0.0/friendrequests/' + this.state.target_id, {
+        fetch('http://localhost:3333/api/1.0.0/friendrequests/' + this.state.target_id, {
             method: 'POST',
             headers: {
                 'X-Authorization': token,

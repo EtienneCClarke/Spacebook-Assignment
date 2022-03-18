@@ -89,7 +89,7 @@ export default class Search extends Component {
 
     async search() {
         const token = await AsyncStorage.getItem('@session_token');
-        return fetch('http://192.168.1.73:3333/api/1.0.0/search?q='
+        return fetch('http://localhost:3333/api/1.0.0/search?q='
                     + this.state.searchQuery
                     + '&limit=' + this.state.limit, {
             method: 'GET',

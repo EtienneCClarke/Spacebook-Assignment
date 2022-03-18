@@ -75,7 +75,7 @@ export default class PostCard extends Component {
 
     async newPost() {
         const token = await AsyncStorage.getItem('@session_token');
-        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.props.target_wall + '/post', {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + this.props.target_wall + '/post', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

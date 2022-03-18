@@ -59,7 +59,7 @@ export default class SinglePost extends Component {
 
     async getPost() {
         const token = await AsyncStorage.getItem('@session_token');
-        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.owner_id + '/post/' + this.state.post_id, {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + this.state.owner_id + '/post/' + this.state.post_id, {
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -93,7 +93,7 @@ export default class SinglePost extends Component {
 
     async updatePost() {
         const token = await AsyncStorage.getItem('@session_token');
-        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.owner_id + '/post/' + this.state.post_id, {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + this.state.owner_id + '/post/' + this.state.post_id, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
@@ -144,7 +144,7 @@ export default class SinglePost extends Component {
 
     async deletePost() {
         const token = await AsyncStorage.getItem('@session_token');
-        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.owner_id + '/post/' + this.state.post_id, {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + this.state.owner_id + '/post/' + this.state.post_id, {
             method: 'DELETE',
             headers: {
                 'X-Authorization': token,

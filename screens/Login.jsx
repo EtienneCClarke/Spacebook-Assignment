@@ -37,7 +37,7 @@ export default class Login extends Component {
         if (token === null) {
             this.props.navigation.navigate('Login');
         } else {
-            fetch('http://192.168.1.73:3333/api/1.0.0/user/' + id, {
+            fetch('http://localhost:3333/api/1.0.0/user/' + id, {
                 method: 'GET',
                 headers: {
                     'X-Authorization': token,
@@ -55,7 +55,7 @@ export default class Login extends Component {
     }
 
     async login() {
-        return fetch('http://192.168.1.73:3333/api/1.0.0/login', {
+        return fetch('http://localhost:3333/api/1.0.0/login', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',

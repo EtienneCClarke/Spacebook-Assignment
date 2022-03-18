@@ -45,7 +45,7 @@ export default class Settings extends Component {
     async getData() {
         const token = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@session_id');
-        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + id, {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + id, {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -74,7 +74,7 @@ export default class Settings extends Component {
 
     async getPhoto() {
         const token = await AsyncStorage.getItem('@session_token');
-        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.user_id + '/photo', {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + this.state.user_id + '/photo', {
             headers: {
                 Accept: 'image/jpeg',
                 'x-Authorization': token,
@@ -116,7 +116,7 @@ export default class Settings extends Component {
     async logout() {
         const token = await AsyncStorage.getItem('@session_token');
         await AsyncStorage.removeItem('@session_token');
-        return fetch('http://192.168.1.73:3333/api/1.0.0/logout', {
+        return fetch('http://localhost:3333/api/1.0.0/logout', {
             method: 'post',
             headers: {
                 'X-Authorization': token,
@@ -155,7 +155,7 @@ export default class Settings extends Component {
     async updateData() {
         if (this.validate()) {
             const token = await AsyncStorage.getItem('@session_token');
-            return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.user_id, {
+            return fetch('http://localhost:3333/api/1.0.0/user/' + this.state.user_id, {
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json',

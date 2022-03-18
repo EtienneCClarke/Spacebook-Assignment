@@ -45,7 +45,7 @@ export default class Signup extends Component {
 
     async register() {
         if (this.validate()) {
-            return fetch('http://192.168.1.73:3333/api/1.0.0/user', {
+            return fetch('http://localhost:3333/api/1.0.0/user', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
