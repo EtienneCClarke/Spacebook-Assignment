@@ -103,6 +103,9 @@ export default class Search extends Component {
             return this.state.searchResults.map((friend, i) => {
                 return(
                     <Pressable
+                        accessible={true}
+                        accessibilityLabel="Go to wall"
+                        accessibilityHint="Goes to selected users wall"
                         key={friend.user_id}
                         style={[Styles.friendLabel,
                             i === 0 ? Styles.firstFriendLabel : null,
@@ -139,8 +142,20 @@ export default class Search extends Component {
                     <Text style={[Styles.title, {marginLeft: '5%', marginRight: '5%', paddingBottom: 15}]}>
                         Search for people you may know!
                     </Text>
-                    <View style={[Styles.container90, {flexDirection: 'row', paddingBottom: 10}]}>
+                    <View
+                        style={[
+                            Styles.container90,
+                            {
+                                flexDirection: 'row',
+                                paddingBottom: 10
+                            }
+                        ]}
+                    >
                         <TextInput
+                            accessible={true}
+                            accessibilityLabel="Search Input"
+                            accessibilityHint="Type the name of who you want to find"
+                            accessibilityRole="search"
                             autoCapitalize="none"
                             placeholder="John Smith..."
                             onChangeText={(searchQuery) => this.setState({ searchQuery })}
@@ -148,20 +163,30 @@ export default class Search extends Component {
                             style={[Styles.input, {flexShrink: 1}]}
                         />
                         <Pressable
+                            accessible={true}
+                            accessibilityLabel="Confirm Search"
+                            accessibilityHint="Searches for the person you entered into the search bar"
                             style={[Styles.actionButton, Styles.searchBtn]}
                             onPress={() => this.search()}
                         >
                             <Text style={Styles.btnText}>GO</Text>
                         </Pressable>
                     </View>
-                    {this.state.displayResults &&
+                    { this.state.displayResults &&
                         <View style={[Styles.search, { marginBottom: 20}]}>
                             <Text style={[Styles.title, {marginTop: 15, marginLeft: '5%', marginRight: '5%', paddingBottom: 15}]}>
                                 Results
                             </Text>
-                            <View style={[Styles.container90, {paddingBottom: 105}]}>
-                                {this.getResults()}
-                                {this.needLoadButton() &&
+                            <View
+                                accessible={true}
+                                accessibilityLabel="Search Results"
+                                style={[
+                                    Styles.container90,
+                                    { paddingBottom: 105 }
+                                ]}
+                            >
+                                { this.getResults() }
+                                { this.needLoadButton() &&
                                     <Pressable style={Styles.loadMoreBtn} onPress={() => this.loadMore()}>
                                         <Text style={Styles.loadMoreText}>Load More</Text>
                                     </Pressable>

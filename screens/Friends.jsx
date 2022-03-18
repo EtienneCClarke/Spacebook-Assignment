@@ -119,6 +119,9 @@ export default class Friends extends Component {
             return this.state.friends.map((friend, i) => {
                 return(
                     <Pressable
+                        accessible={true}
+                        accessibilityLabel="Visit Friend"
+                        accessibilityHint="Navigates to their profile page where you can find their posts"
                         key={friend.user_id}
                         style={[Styles.friendLabel,
                             i === 0 ? Styles.firstFriendLabel : null,
@@ -144,6 +147,7 @@ export default class Friends extends Component {
         return this.state.requests.map((request, i) => {
             return(
                 <View
+                    accessible={true}
                     key={request.user_id}
                     style={[Styles.friendLabel,
                         i === 0 ? Styles.firstFriendLabel : null,
@@ -180,18 +184,24 @@ export default class Friends extends Component {
 
     render() {
         return (
-            <ScrollView style={[Styles.container, {marginTop: 35}]}>
-                {this.state.pendingRequests &&
+            <ScrollView
+                accessible={true}
+                style={[
+                    Styles.container,
+                    { marginTop: 35, }
+                ]}
+            >
+                { this.state.pendingRequests &&
                     <View>
                         <Text style={[Styles.title, {marginLeft: '5%', marginRight: '5%', paddingBottom: 15}]}>Friend Requests</Text>
                         <View style={Styles.container90}>
-                            {this.displayRequests()}
+                            { this.displayRequests() }
                         </View>
                     </View>
                 }
                 <Text style={[Styles.title, {marginTop: 15, marginLeft: '5%', marginRight: '5%', paddingBottom: 15}]}>Your Friends</Text>
                 <View style={[Styles.container90, {paddingBottom: 130}]}>
-                    {this.displayFriends()}
+                    { this.displayFriends() }
                 </View>
             </ScrollView>
         );

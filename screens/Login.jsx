@@ -84,12 +84,25 @@ export default class Login extends Component {
         return (
             <View style={[Styles.container, Styles.center]}>
                 <Image
+                    accessible={true}
+                    accessibilityLabel="Welcome to Spacebook!"
                     style={Styles.logo}
                     source={require('../assets/icons/png/logo.png')}
                 />
-                <Text style={[Styles.title, { marginTop: 15 }]} >Login!</Text>
-                <Text style={Styles.errorMsg}>{!this.state.isValid ? 'Something went wrong! Check details and try again' : ''}</Text>
-                <View style={Styles.inputContainer}>
+                <Text style={[
+                    Styles.title,
+                    { marginTop: 15 }]}
+                >
+                    Login!
+                </Text>
+                <Text style={Styles.errorMsg}>
+                    { !this.state.isValid ? 'Something went wrong! Check details and try again' : '' }
+                </Text>
+                <View
+                    accessible={true}
+                    accessibilityLabel="Enter Email"
+                    style={Styles.inputContainer}
+                >
                     <Text style={Styles.label}>Email</Text>
                     <TextInput
                         autoCapitalize="none"
@@ -99,7 +112,11 @@ export default class Login extends Component {
                         style={Styles.input}
                     />
                 </View>
-                <View style={Styles.inputContainer}>
+                <View
+                    accessible={true}
+                    accessibilityLabel="Enter Password"
+                    style={Styles.inputContainer}
+                >
                     <Text style={Styles.label}>Password</Text>
                     <TextInput
                         autoCapitalize="none"
@@ -111,6 +128,8 @@ export default class Login extends Component {
                     />
                 </View>
                 <Pressable
+                    accessible={true}
+                    accessibilityLabel="Login to account"
                     style={[Styles.btnPrimary, { marginTop: 30}]}
                     onPress={() => this.login()}
                 >
@@ -118,6 +137,9 @@ export default class Login extends Component {
                 </Pressable>
                 <Text style={[Styles.labelLight, { marginTop: 60 }]}>Dont have an account? Register now!</Text>
                 <Pressable
+                    accessible={true}
+                    accessibilityLabel="Register"
+                    accessibilityHint="Go to registration form"
                     style={[Styles.btnSecondary, { marginTop: 30}]}
                     onPress={() => this.props.navigation.navigate('Signup')}
                 >

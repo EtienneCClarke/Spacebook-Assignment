@@ -74,6 +74,9 @@ export default class Drafts extends Component {
                             <Text style={Styles.draft}>{draft.text}</Text>
                         </View>
                         <Pressable
+                            accessible={true}
+                            accessibilityLabel="Edit Draft"
+                            accessibilityHint="Opens draft editor"
                             style={Styles.editDraft}
                             onPress={() => this.setState({
                                 showPostCard: true,
@@ -107,9 +110,18 @@ export default class Drafts extends Component {
             return (<View styles={[Styles.container, Styles.center]}><Text>Loading...</Text></View>);
         } else {
             return (
-                <View style={Styles.container}>
-                    {this.state.showPostCard &&
-                        <PostCard closePostCard={this.closePostCard} target_wall={this.state.id} draft_id={this.state.draft_id} content={this.state.draft_content} draft={true}/>
+                <View 
+                    accessible={true}
+                    style={Styles.container}
+                >
+                    { this.state.showPostCard &&
+                        <PostCard
+                            closePostCard={this.closePostCard}
+                            target_wall={this.state.id}
+                            draft_id={this.state.draft_id}
+                            content={this.state.draft_content}
+                            draft={true}
+                        />
                     }
                     <View style={Styles.header}>
                         <UserLabel
@@ -117,7 +129,18 @@ export default class Drafts extends Component {
                             userId={this.state.id}
                         />
                     </View>
-                    <Text style={[Styles.title, {marginLeft: '5%', marginRight: '5%', paddingBottom: 15}]}>My Drafts</Text>
+                    <Text 
+                        style={[
+                            Styles.title,
+                            {
+                                marginLeft: '5%',
+                                marginRight: '5%',
+                                paddingBottom: 15
+                            }
+                        ]}
+                    >
+                        My Drafts
+                    </Text>
                     <ScrollView key={this.state.reload}>
                         {this.displayDrafts()}
                     </ScrollView>

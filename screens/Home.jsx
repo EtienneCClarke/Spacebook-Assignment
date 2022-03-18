@@ -41,9 +41,18 @@ export default class Home extends Component {
             return (<View styles={[Styles.container, Styles.center]}><Text>Loading...</Text></View>);
         } else {
             return (
-                <View style={Styles.container}>
-                    {this.state.showPostCard &&
-                        <PostCard closePostCard={this.closePostCard} target_wall={this.state.id} draft_id={null} content={null} draft={false}/>
+                <View
+                    accessible={true}
+                    style={Styles.container}
+                >
+                    { this.state.showPostCard &&
+                        <PostCard
+                            closePostCard={this.closePostCard}
+                            target_wall={this.state.id}
+                            draft_id={null}
+                            content={null}
+                            draft={false}
+                        />
                     }
                     <View style={Styles.header}>
                         <UserLabel
@@ -51,6 +60,9 @@ export default class Home extends Component {
                             userId={this.state.id}
                         />
                         <Pressable
+                            accessible={true}
+                            accessibilityLabel="Make a new post"
+                            accessibilityHint="Opens menu to make a new post"
                             style={Styles.newPostBtn}
                             onPress={() => this.setState({showPostCard: true})}
                         >
@@ -63,9 +75,28 @@ export default class Home extends Component {
                             />
                         </Pressable>
                     </View>
-                    <Text style={[Styles.title, {marginLeft: '5%', marginRight: '5%', paddingBottom: 15}]}>My Wall</Text>
-                    <ScrollView style={[Styles.container, {paddingTop: 0, marginBottom: 100}]}>
-                        <Posts targetID={this.state.id}/>
+                    <Text 
+                        style={[
+                            Styles.title,
+                            {
+                                marginLeft: '5%',
+                                marginRight: '5%',
+                                paddingBottom: 15
+                            }
+                        ]}
+                    >
+                        My Wall
+                    </Text>
+                    <ScrollView 
+                        style={[
+                            Styles.container,
+                            {
+                                paddingTop: 0,
+                                marginBottom: 100
+                            }
+                        ]}
+                    >
+                        <Posts targetID={this.state.id} />
                     </ScrollView>
                 </View>
             );

@@ -79,17 +79,24 @@ export default function PhotoUpload() {
                 </View>
                 <View style={Styles.cameraButtonContainer}>
                     <Pressable
+                        accessible={true}
+                        accessibilityLabel="Flip camera mode"
+                        accessibilityHint="Changes which camera you want to use, front or back"
                         style={Styles.btnSecondary}
                         onPress={() => {
-                        setType(
-                            type === Camera.Constants.Type.back
-                            ? Camera.Constants.Type.front
-                            : Camera.Constants.Type.back
-                        );
-                        }}>
+                            setType(
+                                type === Camera.Constants.Type.back
+                                ? Camera.Constants.Type.front
+                                : Camera.Constants.Type.back
+                            );
+                        }}
+                    >
                         <Text style={Styles.btnText}>Flip</Text>
                     </Pressable>
                     <Pressable
+                        accessible={true}
+                        accessibilityLabel="Take Picture"
+                        accessibilityHint="Takes an image and saves as profile picture"
                         style={[
                             Styles.btnPrimary,
                             {
@@ -104,9 +111,12 @@ export default function PhotoUpload() {
         );
     } else {
         return (
-            <View styles={[Styles.container, Styles.center]}>
+            <View style={[Styles.container, Styles.center]}>
                 <Text>Make sure permissions are allowed to use camera</Text>
                 <Button
+                    accessible={true}
+                    accessibilityLabel="Go back to settings"
+                    accessibilityHint="Returns to profile settings"
                     title="Return to Settings"
                     onPress={() => navigation.navigate('Settings')}
                 />

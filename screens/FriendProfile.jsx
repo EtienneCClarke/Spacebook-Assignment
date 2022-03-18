@@ -125,15 +125,26 @@ export default class FriendProfile extends Component {
         } else {
             if(this.state.isFriend) {
                 return (
-                    <View key={this.state.id} style={Styles.container}>
+                    <View
+                        accessible={true}
+                        key={this.state.id}
+                        style={Styles.container}
+                    >
                         {this.state.showPostCard &&
-                            <PostCard closePostCard={this.closePostCard} target_wall={this.state.id}/>
+                            <PostCard 
+                                closePostCard={this.closePostCard}
+                                target_wall={this.state.id}
+                                draft={false}
+                            />
                         }
                         <View style={Styles.header}>
                             <UserLabel
                                 userId={this.state.id}
                             />
                             <Pressable
+                                accessible={true}
+                                accessibilityLabel="Post on this wall"
+                                accessibilityHint="Opens menu to post on this wall!"
                                 style={Styles.newPostBtn}
                                 onPress={() => this.setState({showPostCard: true})}
                             >
@@ -141,36 +152,68 @@ export default class FriendProfile extends Component {
                                     source={require('../assets/icons/png/cross.png')}
                                     style={{
                                         width: 25,
-                                        height: 25
+                                        height: 25,
                                     }}
                                 />
                             </Pressable>
                         </View>
-                        <Text style={[Styles.title, {marginLeft: '5%', marginRight: '5%', paddingBottom: 15}]}>{this.state.first_name}'s Wall</Text>
-                        <ScrollView style={[Styles.container, {paddingTop: 0, marginBottom: 100}]}>
-                            <Posts targetID={this.state.id} key={this.state.reload}/>
+                        <Text style={[
+                            Styles.title,
+                            {
+                                marginLeft: '5%',
+                                marginRight: '5%',
+                                paddingBottom: 15,
+                            }]}
+                        >
+                            {this.state.first_name}'s Wall
+                        </Text>
+                        <ScrollView 
+                            style={[
+                                Styles.container,
+                                {
+                                    paddingTop: 0,
+                                    marginBottom: 100,
+                                }
+                            ]}
+                        >
+                            <Posts 
+                                targetID={this.state.id}
+                                key={this.state.reload}
+                            />
                         </ScrollView>
                     </View>
                 );
             } else {
                 return (
-                    <View key={this.state.id} style={Styles.container}>
+                    <View
+                        accessible={true}
+                        key={this.state.id}
+                        style={Styles.container}
+                    >
                         <View style={Styles.header}>
-                            <UserLabel
-                                userId={this.state.id}
-                            />
-                            {this.state.requestSent && 
-                                <View style={[Styles.actionButtonThin, {marginLeft: 'auto', marginRight: 15, backgroundColor: '#79CAD6'}]}>
+                            <UserLabel userId={this.state.id} />
+                            { this.state.requestSent && 
+                                <View style={[
+                                    Styles.actionButtonThin,
+                                    {
+                                        marginLeft: 'auto',
+                                        marginRight: 15,
+                                        backgroundColor: '#79CAD6',
+                                    }
+                                ]}>
                                     <Text style={Styles.btnText}>Request Sent</Text>
                                 </View>
                             }
-                            {!this.state.requestSent &&
-                                <Pressable 
+                            { !this.state.requestSent &&
+                                <Pressable
+                                    accessible={true}
+                                    accessibilityLabel="Add Friend"
+                                    accessibilityHint="Send a friend request to this person"
                                     style={[
                                         Styles.actionButtonThin, {
                                             marginLeft: 'auto',
                                             marginRight: 15,
-                                            backgroundColor: '#82D281'
+                                            backgroundColor: '#82D281',
                                         }]}
                                     onPress={() => this.sendFriendRequest()}
                                 >
@@ -178,7 +221,16 @@ export default class FriendProfile extends Component {
                                 </Pressable>
                             }
                         </View>
-                        <Text style={[Styles.title, {marginLeft: '5%', marginRight: '5%', paddingBottom: 15}]}>{this.state.first_name}'s Wall</Text>
+                        <Text style={[
+                            Styles.title,
+                            {
+                                marginLeft: '5%',
+                                marginRight: '5%',
+                                paddingBottom: 15,
+                            }]}
+                        >
+                            { this.state.first_name }'s Wall
+                        </Text>
                         <View style={Styles.container90}>
                             <Text>You must be friends with this person in order to see their posts!</Text>
                         </View>

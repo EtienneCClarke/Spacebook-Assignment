@@ -47,6 +47,9 @@ export default class DeclineFriend extends Component {
     render() {
         return(
             <Pressable
+                accessible={true}
+                accessibilityLabel="Decline"
+                accessibilityHint="Declines friend request from user"
                 style={Styles.btnDecline}
                 onPress={() => this.DeclineFriend()}
             >

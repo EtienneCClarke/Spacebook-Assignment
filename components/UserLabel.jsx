@@ -94,6 +94,7 @@ export default class UserLabel extends Component {
         return(
             <View style={Styles.userLabel}>
                 <Image
+                    accessibilityLabel="Your Profile Picture"
                     source={{
                         uri: this.state.photo
                     }}

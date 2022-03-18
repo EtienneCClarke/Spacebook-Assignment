@@ -118,7 +118,13 @@ class Posts extends Component {
                 <View style={Styles.postWall}>
                     {this.displayPosts()}
                     {this.needLoadButton() && 
-                        <Pressable style={Styles.loadMoreBtn} onPress={() => this.loadMore()}> 
+                        <Pressable
+                            accessible={true}
+                            accessibilityLabel="Load More"
+                            accessibilityHint="Loads up to 20 more posts"
+                            style={Styles.loadMoreBtn}
+                            onPress={() => this.loadMore()}
+                        >
                             <Text style={Styles.loadMoreText}>Load More</Text> 
                         </Pressable>
                     } 

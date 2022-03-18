@@ -1,12 +1,15 @@
-import { StyleSheet, Platform, StatusBar, Dimensions } from 'react-native';
+import {
+    StyleSheet,
+    Platform,
+    StatusBar,
+    Dimensions,
+} from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
 export default StyleSheet.create({
     center: {
         alignItems: 'center',
-        justifyContent: 'center',    
+        justifyContent: 'center',
     },
     container: {
         flex: 1,
@@ -20,7 +23,7 @@ export default StyleSheet.create({
     },
     signupScroll: {
         paddingTop: 25,
-        paddingBottom: 25, 
+        paddingBottom: 25,
     },
     logo: {
         width: 232,
@@ -38,7 +41,7 @@ export default StyleSheet.create({
     inputContainer: {
         marginTop: 30,
         width: '90%',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
     },
     userLabel: {
         maxWidth: '80%',
@@ -141,7 +144,7 @@ export default StyleSheet.create({
         paddingHorizontal: '5%',
         paddingVertical: 30,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     postWall: {
         paddingHorizontal: '5%',
@@ -170,7 +173,7 @@ export default StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: 20, 
+        paddingHorizontal: 20,
         marginVertical: 8,
     },
     postLike: {
@@ -275,7 +278,7 @@ export default StyleSheet.create({
     searchBtn: {
         marginTop: 10,
         marginLeft: 15,
-        justifyContent  : 'center'
+        justifyContent: 'center',
     },
     friendLabel: {
         paddingVertical: 15,
@@ -313,7 +316,7 @@ export default StyleSheet.create({
         marginTop: 20,
         flexDirection: 'row',
         alignItems: 'flex-end',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     loadMoreBtn: {
         alignSelf: 'center',
@@ -360,8 +363,8 @@ export default StyleSheet.create({
         borderRadius: 200,
     },
     camera: {
-        width: windowWidth*0.8,
-        height: windowWidth*0.8,
+        width: windowWidth * 0.8,
+        height: windowWidth * 0.8,
         maxWidth: 400,
         maxHeight: 400,
     },
@@ -401,5 +404,5 @@ export default StyleSheet.create({
         elevation: 2,
         marginLeft: 'auto',
         marginRight: 15,
-    }
+    },
 });

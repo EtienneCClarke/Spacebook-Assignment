@@ -20,11 +20,9 @@ export default class PostCard extends Component {
                 const newIndex = Object.keys(obj).length;
                 obj[newIndex] = { text: this.state.text };
                 AsyncStorage.setItem(target, JSON.stringify(obj));
-                alert('Saved!');
                 this.props.closePostCard();
             })
         });  
-
     }
 
     async updateDraft() {
@@ -102,6 +100,9 @@ export default class PostCard extends Component {
                         }}>
                             <Text style={[Styles.title, {fontSize: 20}]}>New Post</Text>
                             <Pressable
+                                accessible={true}
+                                accessibilityLabel="Exit"
+                                accessibilityHint="Closes current screen"
                                 style={Styles.newPostBtnClose}
                                 onPress={() => this.props.closePostCard()}
                             >
@@ -114,7 +115,12 @@ export default class PostCard extends Component {
                                 />
                             </Pressable>
                         </View>
-                        <View style={Styles.postCardBubble}>
+                        <View
+                            accessible={true}
+                            accessibilityLabel="Post Content"
+                            accessibilityHint="Enter here what you would like to post"
+                            style={Styles.postCardBubble}
+                        >
                             <TextInput
                                 autoCapitalize="none"
                                 placeholder="Whats on your mind?"
@@ -129,10 +135,25 @@ export default class PostCard extends Component {
                             />
                         </View>
                         <View style={Styles.postCardActions}>
-                            {this.state.draft &&
-                                <View style={{width: '100%'}}>
-                                    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
+                            { this.state.draft &&
+                                <View
+                                    accessible={true}
+                                    accessibilityLabel="Actions"
+                                    accessibilityHint="What would you like to do with this draft"
+                                    accessibilityRole="menu" 
+                                    style={{ width: '100%' }}
+                                >
+                                    <View
+                                        style={{
+                                            flexDirection: 'row',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            width: '100%',
+                                        }}
+                                    >
                                         <Pressable
+                                            accessible={true}
+                                            accessibilityLabel="Delete Draft"
                                             style={[
                                                 Styles.actionButtonThin,
                                                 {
@@ -146,6 +167,8 @@ export default class PostCard extends Component {
                                             <Text style={Styles.btnTextSmall}>Delete Draft</Text>
                                         </Pressable>
                                         <Pressable
+                                            accessible={true}
+                                            accessibilityLabel="Update Draft"
                                             style={[
                                                 Styles.actionButtonThin,
                                                 {
@@ -159,6 +182,8 @@ export default class PostCard extends Component {
                                         </Pressable>
                                     </View>
                                     <Pressable
+                                        accessible={true}
+                                        accessibilityLabel="Post Draft"
                                         style={[
                                             Styles.actionButtonThin,
                                             {
@@ -175,8 +200,21 @@ export default class PostCard extends Component {
                                         <Text style={Styles.btnText}>Post!</Text>
                                     </Pressable>
                                 </View> ||
-                                <View style={{flexDirection: 'row', alignItems:'flex-end', justifyContent: 'space-between', width: '100%'}}>
+                                <View
+                                    accessible={true}
+                                    accessibilityLabel="Actions"
+                                    accessibilityHint="What would you like to do with this post"
+                                    accessibilityRole="menu"
+                                    style={{
+                                        flexDirection: 'row',
+                                        alignItems:'flex-end',
+                                        justifyContent: 'space-between',
+                                        width: '100%'
+                                    }}
+                                >
                                     <Pressable
+                                        accessible={true}
+                                        accessibilityLabel="Save as draft"
                                         style={[
                                             Styles.actionButtonThin,
                                             {
@@ -189,6 +227,8 @@ export default class PostCard extends Component {
                                         <Text style={Styles.btnTextSmall}>Save to drafts</Text>
                                     </Pressable>
                                     <Pressable
+                                        accessible={true}
+                                        accessibilityLabel="Post"
                                         style={[
                                             Styles.actionButtonThin,
                                             {

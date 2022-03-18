@@ -72,8 +72,14 @@ export default class Signup extends Component {
     render() {
         return (
             <ScrollView contentContainerStyle={styles.signupScroll}>
-                <View style={[styles.container, Styles.center]}>
-
+                <View
+                    accessible={true}
+                    accessibilityLabel="Registration Form"
+                    style={[
+                        styles.container,
+                        Styles.center
+                    ]}
+                >
                     <Image
                         style={styles.logo}
                         source={require('../assets/icons/png/logo.png')}
@@ -81,7 +87,11 @@ export default class Signup extends Component {
 
                     <Text style={[styles.title, { marginTop: 15 }]} >Sign Up!</Text>
 
-                    <View style={styles.inputContainer}>
+                    <View
+                        accessible={true}
+                        accessibilityLabel="Firstname"
+                        style={styles.inputContainer}
+                    >
                         <Text style={styles.label}>First Name</Text>
                         <TextInput
                             placeholder="John"
@@ -91,7 +101,11 @@ export default class Signup extends Component {
                         />
                     </View>
 
-                    <View style={styles.inputContainer}>
+                    <View
+                        accessible={true}
+                        accessibilityLabel="Surnname"
+                        style={styles.inputContainer}
+                    >
                         <Text style={styles.label}>Surname</Text>
                         <TextInput
                             placeholder="Smith"
@@ -101,7 +115,11 @@ export default class Signup extends Component {
                         />
                     </View>
 
-                    <View style={styles.inputContainer}>
+                    <View
+                        accessible={true}
+                        accessibilityLabel="Email"
+                        style={styles.inputContainer}
+                    >
                         <Text style={styles.label}>Email</Text>
                         <TextInput
                             autoCapitalize="none"
@@ -112,7 +130,11 @@ export default class Signup extends Component {
                         />
                     </View>
 
-                    <View style={styles.inputContainer}>
+                    <View
+                        accessible={true}
+                        accessibilityLabel="Password"
+                        style={styles.inputContainer}
+                    >
                         <Text style={styles.label}>Password</Text>
                         <TextInput
                             autoCapitalize="none"
@@ -124,7 +146,11 @@ export default class Signup extends Component {
                         />
                     </View>
 
-                    <View style={styles.inputContainer}>
+                    <View
+                        accessible={true}
+                        accessibilityLabel="Confirm Password"
+                        style={styles.inputContainer}
+                    >
                         <Text style={styles.label}>Confirm Password</Text>
                         <TextInput
                             autoCapitalize="none"
@@ -137,6 +163,9 @@ export default class Signup extends Component {
                     </View>
 
                     <Pressable
+                        accessible={true}
+                        accessibilityLabel="Register"
+                        accessibilityHint="This will register you for the spacebook app"
                         style={[styles.btnPrimary, { marginTop: 30}]}
                         onPress={() => this.register()}
                     >
@@ -146,6 +175,9 @@ export default class Signup extends Component {
                     <Text style={[styles.labelLight, { marginTop: 60 }]}>Already have an account? Login now!</Text>
                     
                     <Pressable
+                        accessible={true}
+                        accessibilityLabel="Login"
+                        accessibilityHint="Return to login page"
                         style={[styles.btnSecondary, { marginTop: 30}]}
                         onPress={() => this.props.navigation.navigate('Login')}
                     >

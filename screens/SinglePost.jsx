@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Image, Pressable, Alert, Platform } from 'react-native';
+import {
+    View,
+    Text,
+    TextInput,
+    Image,
+    Pressable,
+    Alert,
+    Platform,
+} from 'react-native';
 import Styles from '../styling/Styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -46,20 +54,6 @@ export default class SinglePost extends Component {
 
     componentWillUnmount() {
         this.unsubscribe();
-    }
-
-    convertDate() {
-
-        let date = new Date(this.state.timestamp);
-
-        let day = date.getDay();
-        let month = date.getMonth() + 1;
-        let year = date.getFullYear();
-
-        if (day < 10) day = '0' + day;
-        if (month < 10) month = '0' + month;
-
-        return(day + '/' + month + '/' + year);
     }
 
     async getPost() {
@@ -135,7 +129,6 @@ export default class SinglePost extends Component {
         .catch((error) => {
             console.log(error);
         })
-
     }
 
     confirmDeletePost() {
@@ -178,6 +171,21 @@ export default class SinglePost extends Component {
         })
     }
 
+    convertDate() {
+
+        let date = new Date(this.state.timestamp);
+
+        let day = date.getDay();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+
+        if (day < 10) day = '0' + day;
+        if (month < 10) month = '0' + month;
+
+        return(day + '/' + month + '/' + year);
+    }
+
+
     render() {
         if(!this.state.loading) {
             if(this.state.author.user_id == this.state.viewer_id) {
@@ -186,6 +194,9 @@ export default class SinglePost extends Component {
                         <View style={Styles.header}>
                             <Text style={Styles.title}>Posted by <Text style={Styles.titleLight}>Me</Text></Text>
                             <Pressable 
+                                accessible={true}
+                                accessibilityLabel="Go back"
+                                accessibilityHint="Goes back to previous page"
                                 style={Styles.backButton}
                                 onPress={() => this.props.navigation.goBack()}
                             >
@@ -201,7 +212,12 @@ export default class SinglePost extends Component {
                         <View style={{ marginHorizontal: '5%'}}>
                             <View style={[Styles.post, {marginTop: 20}]}>
                                 <Text style={[Styles.postSubText, { marginLeft: 20, paddingBottom: 10 }]}>Click on the bubble to start editing!</Text>
-                                <View style={Styles.postBubble}>
+                                <View
+                                    accessible={true}
+                                    accessibilityLabel="Your Post"
+                                    accessibilityHint="You can edit the input box and click save to update your post"
+                                    style={Styles.postBubble}
+                                >
                                     <TextInput
                                         autoCapitalize="none"
                                         placeholder="Write your post here..."
@@ -225,7 +241,12 @@ export default class SinglePost extends Component {
                                                     }
                                                 ]}
                                             />
-                                            <Text style={[Styles.postSubText, { marginLeft: 10 }]}>
+                                            <Text
+                                                style={[
+                                                    Styles.postSubText,
+                                                    { marginLeft: 10 }
+                                                ]}
+                                            >
                                                 {this.state.numLikes}
                                             </Text>
                                         </View>
@@ -240,7 +261,10 @@ export default class SinglePost extends Component {
                                 </View>
                             </View>
                             <View style={Styles.center}>
-                                <Pressable 
+                                <Pressable
+                                    accessible={true}
+                                    accessibilityLabel="Delete Post"
+                                    accessibilityHint="Deletes post from wall"
                                     style={[Styles.actionButton, { backgroundColor: '#FF4141'}]}
                                     onPress={() => this.confirmDeletePost()}
                                 >
@@ -248,10 +272,11 @@ export default class SinglePost extends Component {
                                 </Pressable>
                             </View>
                         </View>
-                        {
-                        this.state.isEdited && 
+                        { this.state.isEdited && 
                             <View style={Styles.center}>
-                                <Pressable 
+                                <Pressable
+                                    accessible={true}
+                                    accessibilityLabel="Update Post"
                                     style={[Styles.actionButton, {marginTop: 30 }]}
                                     onPress={() => this.updatePost()}
                                 >
@@ -266,7 +291,10 @@ export default class SinglePost extends Component {
                     <View style={Styles.container}>
                         <View style={Styles.header}>
                         <Text style={Styles.title}>Posted by <Text style={Styles.titleLight}>{this.state.author.first_name + ' ' + this.state.author.last_name}</Text></Text>
-                            <Pressable 
+                            <Pressable
+                                accessible={true}
+                                accessibilityLabel="Go back"
+                                accessibilityHint="Goes back to previous page"
                                 style={Styles.backButton}
                                 onPress={() => this.props.navigation.goBack()}
                             >
@@ -281,7 +309,11 @@ export default class SinglePost extends Component {
                         </View>
                         <View style={{ marginHorizontal: '5%'}}>
                             <View style={[Styles.post, {marginTop: 20}]}>
-                                <View style={Styles.postBubble}>
+                                <View
+                                    accessible={true}
+                                    accessibilityLabel="Post"
+                                    style={Styles.postBubble}
+                                >
                                     <Text style={Styles.postText}>
                                         {this.state.text}
                                     </Text>
@@ -318,10 +350,9 @@ export default class SinglePost extends Component {
                     </View>
                 );
             }
-        } else {
-            return(
-                <View style={[Styles.container]}></View>
-            );
         }
+        return (
+            <View style={[Styles.container]} />
+        );
     }
 }

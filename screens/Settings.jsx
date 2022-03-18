@@ -166,7 +166,11 @@ export default class Settings extends Component {
                     'content-type': 'application/json',
                     'X-Authorization': token
                 },
-                body: JSON.stringify(this.state),
+                body: JSON.stringify({
+                    first_name: this.state.first_name,
+                    last_name: this.state.last_name,
+                    email: this.state.email,
+                }),
             })
             .then((response) => {
                 if(response.status === 200) {
@@ -197,13 +201,20 @@ export default class Settings extends Component {
         } else {
             return (
                 <ScrollView contentContainerStyle={[Styles.container, { alignItems: 'center', marginBottom: 105}]}>
-                    <Pressable 
+                    <Pressable
+                        accessible={true}
+                        accessibilityLabel="Log out"
+                        accessibilityHint="Log out of current account"
                         style={Styles.btnLogout}
                         onPress={() => this.logout()}
                     >
-                        <Text style={Styles.btnTextSmall}>LOGOUT</Text>
+                        <Text style={Styles.btnTextSmall}>
+                            LOGOUT
+                        </Text>
                     </Pressable>
                     <Pressable
+                        accessible={true}
+                        accessibilityLabel="Change profile picture"
                         style={{flexDirection: 'row'}}
                         onPress={() => this.props.navigation.navigate('PhotoUpload')}
                     >
@@ -231,31 +242,66 @@ export default class Settings extends Component {
                             }}
                         />
                     </Pressable>
-                    <Text style={[Styles.label, { marginTop: 10 }]}>{this.state.first_name + ' ' + this.state.last_name}</Text>
-                    <Text style={[Styles.labelLight, {marginTop: 40}]}>Firstname</Text>
-                    <TextInput
-                        placeholder="John"
-                        onChangeText={(first_name) => this.setState({ first_name: first_name, edited: true })}
-                        value={this.state.first_name}
-                        style={[Styles.input, {width: '90%'}]}
-                    />
-                    <Text style={[Styles.labelLight, {marginTop: 30}]}>Surname</Text>
-                    <TextInput
-                        placeholder="Smith"
-                        onChangeText={(last_name) => this.setState({ last_name: last_name, edited: true })}
-                        value={this.state.last_name}
-                        style={[Styles.input, {width: '90%'}]}
-                    />
-                    <Text style={[Styles.labelLight, {marginTop: 30}]}>Email</Text>
-                    <TextInput
-                        autoCapitalize="none"
-                        placeholder="johnsmith@email.com"
-                        onChangeText={(email) => this.setState({ email: email, edited: true })}
-                        value={this.state.email}
-                        style={[Styles.input, {width: '90%'}]}
-                    />
+                    <Text style={[Styles.label, { marginTop: 10 }]}>
+                        { this.state.first_name + ' ' + this.state.last_name }
+                    </Text>
+                    <View
+                        accessible={true}
+                        accessibilityLabel="Firstname"
+                        accessibilityHint="Edit this and press save to update your firstname"
+                        style={{
+                            width: '100%',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Text style={[Styles.labelLight, {marginTop: 40}]}>Firstname</Text>
+                        <TextInput
+                            placeholder="John"
+                            onChangeText={(first_name) => this.setState({ first_name: first_name, edited: true })}
+                            value={this.state.first_name}
+                            style={[Styles.input, {width: '90%'}]}
+                        />
+                    </View>
+                    <View
+                        accessible={true}
+                        accessibilityLabel="Surnname"
+                        accessibilityHint="Edit this and press save to update your surnname"
+                        style={{
+                            width: '100%',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Text style={[Styles.labelLight, {marginTop: 30}]}>Surname</Text>
+                        <TextInput
+                            placeholder="Smith"
+                            onChangeText={(last_name) => this.setState({ last_name: last_name, edited: true })}
+                            value={this.state.last_name}
+                            style={[Styles.input, {width: '90%'}]}
+                        />
+                    </View>
+                    <View
+                        accessible={true}
+                        accessibilityLabel="Email"
+                        accessibilityHint="Edit this and press save to update your email"
+                        style={{
+                            width: '100%',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Text style={[Styles.labelLight, {marginTop: 30}]}>Email</Text>
+                        <TextInput
+                            autoCapitalize="none"
+                            placeholder="johnsmith@email.com"
+                            onChangeText={(email) => this.setState({ email: email, edited: true })}
+                            value={this.state.email}
+                            style={[Styles.input, {width: '90%'}]}
+                        />
+                    </View>
                     {this.state.edited &&
                         <Pressable 
+                            accessible={true}
+                            accessibilityLabel="Save Details"
+                            accessibilityHint="Use this to save updated details"
                             style={[
                                 Styles.btnPrimary,
                                 {

@@ -47,6 +47,9 @@ export default class AcceptFriend extends Component {
     render() {
         return(
             <Pressable
+                accessible={true}
+                accessibilityLabel="Accept"
+                accessibilityHint="Accepts friend request from user"
                 style={Styles.btnAccept}
                 onPress={() => this.AcceptFriend()}
             >

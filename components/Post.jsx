@@ -147,6 +147,9 @@ class Post extends Component {
         return(
             <View style={Styles.post}>
                 <Pressable
+                    accessible={true}
+                    accessibilityLabel="Manage Post"
+                    accessibilityHint="If you want to edit or delete post click this"
                     onPress={() => this.props.navigation.navigate('SinglePost', { 
                         data: {
                             post_id: this.props.post_id,
@@ -162,6 +165,9 @@ class Post extends Component {
                 <View style={Styles.postDetails}>
                     <View style={Styles.postLikes}>
                         <Pressable
+                            accessible={true}
+                            accessibilityLabel="Like"
+                            accessibilityHint="Toggles whether you like the post"
                             style={Styles.postLikeBtn}
                             onPress={() => this.toggleLike()}
                         >
