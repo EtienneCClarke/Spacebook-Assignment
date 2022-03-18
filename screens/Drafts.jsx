@@ -41,6 +41,9 @@ export default class Drafts extends Component {
     }
 
     async getDrafts() {
+        // Gets current user id, and retrieves corresponding drafts. The result is then parsed into
+        // a JSON object. Loop through each item in json object and add to a temprary array.
+        // Store the final result in page state for use in DOM.
         AsyncStorage.getItem('@session_id').then((id) => {
             const target = '@drafts_' + id;
             AsyncStorage.getItem(target).then((arr) => {
@@ -61,6 +64,7 @@ export default class Drafts extends Component {
     }
 
     displayDrafts() {
+        // Iterate over each item in array and return a component
         return this.state.drafts.map((draft, i) => {
             if (i === 0) {
                 return null;

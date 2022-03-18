@@ -22,6 +22,9 @@ export default class PostCard extends Component {
     }
 
     async saveDraft() {
+        // Get drafts from local storage then Parse the result string into JSON object.
+        // Then get the number of objects stored and use as index for new insertion.
+        // Stringify updated json object and update local storage.
         AsyncStorage.getItem('@session_id').then((id) => {
             const target = '@drafts_' + id;
             AsyncStorage.getItem(target).then((arr) => {
@@ -35,6 +38,8 @@ export default class PostCard extends Component {
     }
 
     async updateDraft() {
+        // Get drafts from local storage then Parse the result string into JSON object.
+        // Replace the text stored in JSON object and then update local storage.
         AsyncStorage.getItem('@session_id').then((id) => {
             const target = '@drafts_' + id;
             AsyncStorage.getItem(target).then((arr) => {
@@ -47,6 +52,11 @@ export default class PostCard extends Component {
     }
 
     async deleteDraft() {
+        // Get drafts from local storage then Parse the result string into JSON object.
+        // Loop through each object and add to a temporary array. This is done because
+        // the splice functionality will change the indexes automatically for us.
+        // Remove desired item from array -> convert array into stringified JSON object
+        // and store result in local storage.
         AsyncStorage.getItem('@session_id').then((id) => {
             const target = '@drafts_' + id;
             AsyncStorage.getItem(target).then((arr) => {
