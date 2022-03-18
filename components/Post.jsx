@@ -1,12 +1,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import React, { Component } from 'react';
-import { View, Text, Image, Pressable } from 'react-native';
+import {
+    View,
+    Text,
+    Image,
+    Pressable,
+} from 'react-native';
+import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import Styles from '../styling/Styles';
 
 class Post extends Component {
-
     constructor() {
         super();
         this.state = {
@@ -19,115 +24,110 @@ class Post extends Component {
         this.checkLikeStatus();
         this.setState({
             likes: this.props.likes,
-            ogLikes: this.props.likes,
-        })
+        });
     }
 
     async checkLikeStatus() {
-
         const token = await AsyncStorage.getItem('@session_token');
-
-        if(this.props.author_id != this.props.viewer_id) {
-            return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.props.author_id + '/post/' + this.props.post_id + '/like', {
-            method: 'POST',
-            headers: {
-                'x-Authorization': token,
-            }
-            })
-            .then((response) => {
-                if(response.status == 200) {
+        if (this.props.author_id != this.props.viewer_id) {
+            return fetch('http://192.168.1.73:3333/api/1.0.0/user/'
+                + this.props.author_id
+                + '/post/'
+                + this.props.post_id
+                + '/like', {
+                method: 'POST',
+                headers: {
+                    'x-Authorization': token,
+                },
+            }).then((response) => {
+                if (response.status == 200) {
                     this.unlikePost();
-                } else if (response.status === 404) {
-                    throw 'Not Found';
+                } else if (this.props.owner_id != this.props.viewer_id) {
+                    this.setState({
+                        liked: false,
+                    });
+                } else {
+                    this.setState({
+                        liked: true,
+                    });
                 }
-                else {
-                    if(this.props.owner_id != this.props.viewer_id) {
-                        this.setState({
-                            liked: false,
-                        });
-                    } else {
-                        this.setState({
-                            liked: true,
-                        });
-                    }
-                }
-            })
-            .catch((error) => {
+            }).catch((error) => {
                 console.log(error);
-            })
+            });
         }
-
+        return null;
     }
 
     toggleLike() {
-
-        if(this.props.author_id == this.props.viewer_id) {
-            alert('Cannot like your own posts!')
+        if (this.props.author_id == this.props.viewer_id) {
+            alert('Cannot like your own posts!');
+        } else if (this.state.liked) {
+            this.unlikePost();
         } else {
-            if(this.state.liked) { this.unlikePost(); }
-            else { this.likePost(); }
+            this.likePost();
         }
-
     }
 
     async likePost() {
-
         const token = await AsyncStorage.getItem('@session_token');
-
-        return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.props.author_id + '/post/' + this.props.post_id + '/like', {
+        return fetch('http://192.168.1.73:3333/api/1.0.0/user/'
+            + this.props.author_id
+            + '/post/'
+            + this.props.post_id
+            + '/like', {
             method: 'POST',
             headers: {
                 'x-Authorization': token,
-            }
-        })
-        .then((response) => {
-            if(response.status === 200) {
-                this.setState({
+            },
+        }).then((response) => {
+            if (response.status === 200) {
+                this.setState((prev) => ({
                     liked: true,
-                    likes: this.state.likes + 1,
-                })
+                    likes: prev.likes + 1,
+                }));
             } else if (response.status === 401) {
-                throw 'Unauthorised';
+                throw new Error('Unauthorised');
             } else if (response.status === 403) {
-                throw 'Already liked post';
+                throw new Error('Already liked post');
             } else if (response.status === 404) {
-                throw 'Not Found';
+                throw new Error('Not Found');
             } else {
-                throw 'Something went wrong';
+                throw new Error('Something went wrong');
             }
         });
     }
 
     async unlikePost() {
-
         const token = await AsyncStorage.getItem('@session_token');
-        fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.props.author_id + '/post/' + this.props.post_id + '/like', {
+        fetch('http://192.168.1.73:3333/api/1.0.0/user/'
+            + this.props.author_id
+            + '/post/'
+            + this.props.post_id
+            + '/like', {
             method: 'DELETE',
             headers: {
                 'x-Authorization': token,
             },
-        })
-        .then((response) => {
-            if(response.status === 200) {
+        }).then((response) => {
+            if (response.status === 200) {
                 let diff = 1;
-                if(this.state.likes == 0) {
+                if (this.state.likes == 0) {
                     diff = 0;
                 }
-                this.setState({
+                this.setState((prev) => ({
                     liked: false,
-                    likes: this.state.likes - diff,
-                })
+                    likes: prev.likes - diff,
+                }));
             } else if (response.status === 401) {
-                return 'Unauthorised';
+                throw new Error('Unauthorised');
             } else if (response.status === 403) {
-                return 'You have not liked this post already';
+                throw new Error('You have not liked this post already');
             } else if (response.status === 404) {
-                return 'Not Found';
+                throw new Error('Not Found');
             } else {
-                return 'Something went wrong';
+                throw new Error('Something went wrong');
             }
-        })
-
+        });
     }
 
     convertDate() {
@@ -137,19 +137,19 @@ class Post extends Component {
     }
 
     render() {
-        return(
+        return (
             <View style={Styles.post}>
                 <Pressable
-                    accessible={true}
+                    accessible
                     accessibilityLabel="Manage Post"
                     accessibilityHint="If you want to edit or delete post click this"
-                    onPress={() => this.props.navigation.navigate('SinglePost', { 
+                    onPress={() => this.props.navigation.navigate('SinglePost', {
                         data: {
                             post_id: this.props.post_id,
                             viewer_id: this.props.viewer_id,
                             author_id: this.props.author_id,
                             owner_id: this.props.owner_id,
-                        } 
+                        },
                     })}
                     style={Styles.postBubble}
                 >
@@ -158,19 +158,19 @@ class Post extends Component {
                 <View style={Styles.postDetails}>
                     <View style={Styles.postLikes}>
                         <Pressable
-                            accessible={true}
+                            accessible
                             accessibilityLabel="Like"
                             accessibilityHint="Toggles whether you like the post"
                             style={Styles.postLikeBtn}
                             onPress={() => this.toggleLike()}
                         >
-                            <Image 
+                            <Image
                                 source={require('../assets/icons/png/like.png')}
                                 style={[
-                                    Styles.postLike, 
+                                    Styles.postLike,
                                     {
-                                        tintColor: this.state.liked ? '#FF8F8F' : '#C4C4C4'
-                                    }
+                                        tintColor: this.state.liked ? '#FF8F8F' : '#C4C4C4',
+                                    },
                                 ]}
                             />
                             <Text style={[Styles.postSubText, { marginLeft: 10 }]}>
@@ -191,8 +191,35 @@ class Post extends Component {
     }
 }
 
-export default function(props) {
+export default function (props) {
     const navigation = useNavigation();
-
-    return <Post {...props} navigation={navigation}/>
+    return <Post {...props} navigation={navigation} />;
 }
+
+Post.propTypes = {
+    post_id: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+    ]).isRequired,
+    viewer_id: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+    ]).isRequired,
+    owner_id: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+    ]).isRequired,
+    author_id: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+    ]).isRequired,
+    body: PropTypes.string.isRequired,
+    likes: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+    ]).isRequired,
+    date: PropTypes.string.isRequired,
+    navigation: PropTypes.shape({
+        navigate: PropTypes.func,
+    }).isRequired,
+};

@@ -37,11 +37,34 @@ module.exports = {
         'no-alert': 'off',
         'no-console': 'off',
 
+        // Disabled as returns and error throws are needed after fetch
+        'no-else-return': 'off',
+
+        // Turn off as needed for email regex
+        'no-control-regex': 'off',
+        'no-useless-escape': 'off',
+
+        // Disabled as i need to check if number equates to string
+        eqeqeq: 'off',
+
         // stop warning requires for images
         'global-require': 'off',
-        'react/destructuring-assignment': 'never',
 
+        // Disable templates needed for appending strings
+        'prefer-template': 'off',
+
+        // Allows for if statements in setState
+        'no-unneeded-ternary': 'off',
+
+        // Increase max length
+        'max-len': ['error', { code: 120 }],
+
+        // off
+        'react/jsx-props-no-spreading': 'off',
+        'prefer-object-spread': 'off',
+
+        // Preference
         'react/no-unstable-nested-components': ['off', { allowAsProps: true }],
-
+        'react/destructuring-assignment': [2, 'never'],
     },
 };

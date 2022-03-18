@@ -8,12 +8,12 @@ import {
     Alert,
     Platform,
 } from 'react-native';
-import Styles from '../styling/Styles';
 import { format } from 'date-fns';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import PropTypes from 'prop-types';
+import Styles from '../styling/Styles';
 
 export default class SinglePost extends Component {
-
     constructor() {
         super();
         this.state = {
@@ -41,14 +41,14 @@ export default class SinglePost extends Component {
                 owner_id: this.props.route.params.data.owner_id,
                 post_id: this.props.route.params.data.post_id,
                 author: {
-                    user_id: this.props.route.params.data.author_id
+                    user_id: this.props.route.params.data.author_id,
                 },
                 loading: true,
             });
             this.getPost().then(() => {
                 this.setState({
                     loading: false,
-                })
+                });
             });
         });
     }
@@ -58,28 +58,24 @@ export default class SinglePost extends Component {
     }
 
     async getPost() {
-
         const token = await AsyncStorage.getItem('@session_token');
-
         return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.owner_id + '/post/' + this.state.post_id, {
             method: 'GET',
             headers: {
-                'accept': 'application/json',
-                'X-Authorization': token
+                accept: 'application/json',
+                'X-Authorization': token,
             },
-        })
-        .then((response) => {
+        }).then((response) => {
             if (response.status === 200) {
                 return response.json();
             } else if (response.status === 403) {
-                throw 'Unauthorised';
+                throw new Error('Unauthorised');
             } else if (response.status === 404) {
-                throw 'Not Found';
+                throw new Error('Not Found');
             } else {
-                throw 'Server Error';
+                throw new Error('Server Error');
             }
-        })
-        .then((responseJson) => {
+        }).then((responseJson) => {
             this.setState({
                 text: responseJson.text,
                 timestamp: responseJson.timestamp,
@@ -89,52 +85,45 @@ export default class SinglePost extends Component {
                     last_name: responseJson.author.last_name,
                 },
                 numLikes: responseJson.numLikes,
-            })
-        })
-        .catch((error) => {
+            });
+        }).catch((error) => {
             console.log(error);
-        })
-        
+        });
     }
 
     async updatePost() {
-
         const token = await AsyncStorage.getItem('@session_token');
-
         return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.owner_id + '/post/' + this.state.post_id, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
-                'X-Authorization': token
+                'X-Authorization': token,
             },
             body: JSON.stringify(this.state),
-        })
-        .then((response) => {
-            if(response.status === 200) {
+        }).then((response) => {
+            if (response.status === 200) {
                 alert('Successfully updated post!');
                 this.setState({
                     isEdited: false,
-                })
+                });
             } else if (response.status === 400) {
-                throw 'Bad Request';
+                throw new Error('Bad Request');
             } else if (response.status === 401) {
-                throw 'Unauthorized';
+                throw new Error('Unauthorized');
             } else if (response.status === 403) {
-                throw 'Forbidden - you can only update your own posts';
+                throw new Error('Forbidden - you can only update your own posts');
             } else if (response.status === 404) {
-                throw 'Not Found';
+                throw new Error('Not Found');
             } else {
-                throw 'Something went wrong';
+                throw new Error('Something went wrong');
             }
-        })
-        .catch((error) => {
+        }).catch((error) => {
             console.log(error);
-        })
+        });
     }
 
     confirmDeletePost() {
-
-        if(Platform.OS === 'web') {
+        if (Platform.OS === 'web') {
             this.deletePost();
         } else {
             Alert.alert(
@@ -147,29 +136,24 @@ export default class SinglePost extends Component {
                     },
                     {
                         text: 'Cancel',
-                    }
-    
-                ]
+                    },
+                ],
             );
         }
     }
 
     async deletePost() {
-
         const token = await AsyncStorage.getItem('@session_token');
-
         return fetch('http://192.168.1.73:3333/api/1.0.0/user/' + this.state.owner_id + '/post/' + this.state.post_id, {
             method: 'DELETE',
             headers: {
-                'X-Authorization': token
+                'X-Authorization': token,
             },
-        })
-        .then((response) => {
-            if(response.status === 200) {
-                alert('Post Deleted!');
+        }).then((response) => {
+            if (response.status === 200) {
                 this.props.navigation.goBack();
             }
-        })
+        });
     }
 
     convertDate() {
@@ -178,16 +162,18 @@ export default class SinglePost extends Component {
         return date;
     }
 
-
     render() {
-        if(!this.state.loading) {
-            if(this.state.author.user_id == this.state.viewer_id) {
-                return(
+        if (!this.state.loading) {
+            if (this.state.author.user_id == this.state.viewer_id) {
+                return (
                     <View style={Styles.container} key={this.state.post_id}>
                         <View style={Styles.header}>
-                            <Text style={Styles.title}>Posted by <Text style={Styles.titleLight}>Me</Text></Text>
-                            <Pressable 
-                                accessible={true}
+                            <Text style={Styles.title}>
+                                Posted by
+                                <Text style={Styles.titleLight}> Me</Text>
+                            </Text>
+                            <Pressable
+                                accessible
                                 accessibilityLabel="Go back"
                                 accessibilityHint="Goes back to previous page"
                                 style={Styles.backButton}
@@ -197,16 +183,26 @@ export default class SinglePost extends Component {
                                     source={require('../assets/icons/png/xLarge.png')}
                                     style={{
                                         width: 40,
-                                        height: 40
+                                        height: 40,
                                     }}
                                 />
                             </Pressable>
                         </View>
-                        <View style={{ marginHorizontal: '5%'}}>
-                            <View style={[Styles.post, {marginTop: 20}]}>
-                                <Text style={[Styles.postSubText, { marginLeft: 20, paddingBottom: 10 }]}>Click on the bubble to start editing!</Text>
+                        <View style={{ marginHorizontal: '5%' }}>
+                            <View style={[Styles.post, { marginTop: 20 }]}>
+                                <Text
+                                    style={[
+                                        Styles.postSubText,
+                                        {
+                                            marginLeft: 20,
+                                            paddingBottom: 10,
+                                        },
+                                    ]}
+                                >
+                                    Click on the bubble to start editing!
+                                </Text>
                                 <View
-                                    accessible={true}
+                                    accessible
                                     accessibilityLabel="Your Post"
                                     accessibilityHint="You can edit the input box and click save to update your post"
                                     style={Styles.postBubble}
@@ -286,7 +282,7 @@ export default class SinglePost extends Component {
                         <Text style={Styles.title}>
                             Posted by
                             <Text style={Styles.titleLight}>
-                                { this.state.author.first_name + ' ' + this.state.author.last_name }
+                                { ' ' + this.state.author.first_name + ' ' + this.state.author.last_name }
                             </Text>
                         </Text>
                         <Pressable
@@ -353,3 +349,24 @@ export default class SinglePost extends Component {
         );
     }
 }
+
+SinglePost.propTypes = {
+    route: PropTypes.shape({
+        params: PropTypes.shape({
+            data: PropTypes.shape({
+                viewer_id: PropTypes.string,
+                owner_id: PropTypes.oneOfType([
+                    PropTypes.number,
+                    PropTypes.string,
+                ]),
+                post_id: PropTypes.number,
+                author_id: PropTypes.number,
+            }),
+        }),
+    }).isRequired,
+    navigation: PropTypes.shape({
+        addListener: PropTypes.func,
+        navigate: PropTypes.func,
+        goBack: PropTypes.func,
+    }).isRequired,
+};
