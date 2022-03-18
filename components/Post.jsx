@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
+import { format } from 'date-fns';
 import Styles from '../styling/Styles';
 
 class Post extends Component {
@@ -130,17 +131,9 @@ class Post extends Component {
     }
 
     convertDate() {
-
         let date = new Date(this.props.date);
-
-        let day = date.getDay();
-        let month = date.getMonth() + 1;
-        let year = date.getFullYear();
-
-        if (day < 10) day = '0' + day;
-        if (month < 10) month = '0' + month;
-
-        return(day + '/' + month + '/' + year);
+        date = format(date, 'dd/LL/yy');
+        return date;
     }
 
     render() {
