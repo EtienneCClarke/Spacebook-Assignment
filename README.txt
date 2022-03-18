@@ -10,7 +10,7 @@ Bad:
 'http://localhost:3333/api/1.0.0/friendrequests/{user_id}'
 
 Good:
-'http://192.168.1.73:3333/api/1.0.0/friendrequests/{user_id}
+'http://192.168.1.73:3333/api/1.0.0/friendrequests/{user_id}'
 
 ----------------------------------------------------------------
 Version Control			:			GitHub
