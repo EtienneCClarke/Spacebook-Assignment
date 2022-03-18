@@ -37,6 +37,9 @@ module.exports = {
         'no-alert': 'off',
         'no-console': 'off',
 
+        // stop warning requires for images
+        'global-require': 'off',
+
         'react/no-unstable-nested-components': ['off', { allowAsProps: true }],
 
     },
