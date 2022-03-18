@@ -39,6 +39,7 @@ module.exports = {
 
         // stop warning requires for images
         'global-require': 'off',
+        'react/destructuring-assignment': 'never',
 
         'react/no-unstable-nested-components': ['off', { allowAsProps: true }],
 
