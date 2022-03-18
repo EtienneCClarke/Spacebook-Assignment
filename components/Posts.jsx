@@ -64,6 +64,7 @@ class Posts extends Component {
     }
 
     displayPosts() {
+        // Iterate through each post stored in state and pass information to a Post component
         return this.state.posts.map((post) => (
             <Post
                 key={post.post_id}
